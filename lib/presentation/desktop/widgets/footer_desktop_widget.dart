@@ -5,6 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:html' as html;
 
+const String usloviyaPodpiski =
+    "https://docs.google.com/document/d/1TA7h5RXT-JGbwDWzrzPdBwk56lGKRfvdlkPH_T6hkSI/edit#heading=h.7br5nz4jdxmh";
+const String oferta =
+    "https://docs.google.com/document/d/1VowpZLnklgpxcN3HajhTl80nYrGWwyj7wxvwrckh2KA/edit#heading=h.um8sowdi6e84";
+const String politikaConf =
+    "https://docs.google.com/document/d/1slSCdz2y-GueFixS-YUURMUXg2p3P61mrzKuUVVfUUA/edit#heading=h.144b66wztt4f";
+
 class FooterDesktopWidget extends StatelessWidget {
   const FooterDesktopWidget({
     super.key,
@@ -18,23 +25,34 @@ class FooterDesktopWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          const FooterInfoWidget(
+          FooterInfoWidget(
             title: 'О нас',
+            onTap: () {
+              html.window.open(politikaConf, 'new tab');
+            },
             subtitle:
                 'Ответы на часто \nзадаваемые вопросы о\nDesoto, о том, как он\nработает, и многое другое.',
-            agreementText: 'Правило пользования',
-          ),
-          const FooterInfoWidget(
-            title: 'Партнерам',
-            subtitle:
-                'Узнайте, как мы можем\nпомочь вашей компании\nпривлечь к разработке\nталантливых\nWeb-дизайнеров',
             agreementText: 'Политика конфиденциальности',
           ),
-          const FooterInfoWidget(
+          const SizedBox(height: 30),
+          FooterInfoWidget(
+            title: 'Партнерам',
+            onTap: () {
+              html.window.open(oferta, 'new tab');
+            },
+            subtitle:
+                'Узнайте, как мы можем\nпомочь вашей компании\nпривлечь к разработке\nталантливых\nWeb-дизайнеров',
+            agreementText: 'Публичная оферта',
+          ),
+          const SizedBox(height: 30),
+          FooterInfoWidget(
             title: 'PR поддержка',
+            onTap: () {
+              html.window.open(usloviyaPodpiski, 'new tab');
+            },
             subtitle:
                 'У вас есть дизайн,\nкоторым вы хотели бы поделиться\nсо всем миром?\nПоделитесь с нами, и мы\nрасскажем о нем.',
-            agreementText: 'Пользовательское соглашение',
+            agreementText: 'Условия подписки',
           ),
           SizedBox(
             height: 280,
@@ -59,7 +77,7 @@ class FooterDesktopWidget extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 40),
-                const Text('Условия подписки', textAlign: TextAlign.center)
+                // const Text('Условия подписки', textAlign: TextAlign.center)
               ],
             ),
           )
@@ -70,15 +88,16 @@ class FooterDesktopWidget extends StatelessWidget {
 }
 
 class FooterInfoWidget extends StatelessWidget {
-  const FooterInfoWidget({
-    super.key,
-    required this.title,
-    required this.subtitle,
-    required this.agreementText,
-  });
+  const FooterInfoWidget(
+      {super.key,
+      required this.title,
+      required this.subtitle,
+      required this.agreementText,
+      required this.onTap});
   final String title;
   final String subtitle;
   final String agreementText;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +110,9 @@ class FooterInfoWidget extends StatelessWidget {
           const SizedBox(height: 30),
           Text(subtitle, style: AppStyles.s18w700, textAlign: TextAlign.center),
           const SizedBox(height: 40),
-          const Text('Правило пользования', textAlign: TextAlign.center)
+          InkWell(
+              onTap: onTap,
+              child: Text(agreementText, textAlign: TextAlign.center))
         ],
       ),
     );

@@ -10,6 +10,7 @@ import 'package:desoto_web/presentation/desktop/widgets/second_desktop_widget.da
 import 'package:desoto_web/presentation/desktop/widgets/sixth_desktop_widget.dart';
 import 'package:desoto_web/presentation/desktop/widgets/third_desktop_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class DesktopHomePage extends StatefulWidget {
   const DesktopHomePage({super.key});
@@ -56,7 +57,18 @@ class _DesktopHomePageState extends State<DesktopHomePage> {
               const FourthDesktopWidget(),
               const FifthDesktopWidget(),
               const SixthDesktopWidget(),
-              const FooterDesktopWidget()
+              const FooterDesktopWidget(),
+              const Padding(
+                padding: EdgeInsets.only(left: 50.0, bottom: 50),
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: SizedBox(
+                    width: 300,
+                    child: Text(
+                        'Контактные сведения:\narebro.eth@gmail.com\nАдрес: Казахстан, Зеленый Бор, УЛИЦА ШКОЛЬНАЯ, дом 4, кв/офис 2\nБИН (ИИН): 040313550642'),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
