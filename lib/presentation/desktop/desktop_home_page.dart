@@ -68,7 +68,7 @@ class _DesktopHomePageState extends State<DesktopHomePage> {
                         'Контактные сведения:\narebro.eth@gmail.com\nАдрес: Казахстан, Зеленый Бор, УЛИЦА ШКОЛЬНАЯ, дом 4, кв/офис 2\nБИН (ИИН): 040313550642'),
                   ),
                 ),
-              ),
+              )
             ],
           ),
         ),

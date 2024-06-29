@@ -1,11 +1,1 @@
-{
-  "hosting": {
-    "site": "desoto",
-    "public": "build/web",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ]
-  }
-}
+{"hosting":{"site":"desoto","public":"build/web","ignore":["firebase.json","**/.*","**/node_modules/**"]},"flutter":{"platforms":{"dart":{"lib/firebase_options.dart":{"projectId":"uichallenger","configurations":{"web":"1:235861192036:web:fe38a248c34afdf7985e71"}}}}}}

@@ -1,5 +1,6 @@
 import 'package:desoto_web/core/app_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class HeaderDesktopWidget extends StatelessWidget {
   const HeaderDesktopWidget({super.key, required this.scrollController});
@@ -27,9 +28,9 @@ class HeaderDesktopWidget extends StatelessWidget {
                     curve: Curves.easeInOut,
                   );
                 },
-                child: Container(
-                  margin: const EdgeInsets.all(8),
-                  child: const Text(
+                child: const Padding(
+                  padding: EdgeInsets.all(8),
+                  child: Text(
                     'Тарифы',
                     style: AppStyles.s16w500,
                   ),
@@ -37,15 +38,39 @@ class HeaderDesktopWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 40),
-            const Text(
-              'Войти',
-              style: AppStyles.s16w500,
+            Material(
+              color: Colors.transparent,
+              child: InkWell(
+                borderRadius: BorderRadius.circular(8),
+                onTap: () {
+                  context.go('/auth');
+                },
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    'Войти',
+                    style: AppStyles.s16w500,
+                  ),
+                ),
+              ),
             ),
             const SizedBox(width: 40),
-            const Text(
-              'Регистрация',
-              style: AppStyles.s16w500,
-            )
+            Material(
+              color: Colors.transparent,
+              child: InkWell(
+                borderRadius: BorderRadius.circular(8),
+                onTap: () {
+                  context.go('/registration');
+                },
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    'Регистрация',
+                    style: AppStyles.s16w500,
+                  ),
+                ),
+              ),
+            ),
           ],
         )
       ],

@@ -25,6 +25,7 @@ class _Images {
   final String mag = 'assets/images/mag.png';
   final String medal = 'assets/images/medal.png';
   final String izidosmob = 'assets/images/izidosmob.png';
+  final String googleIos = 'assets/images/google-ios.png';
 }
 
 class _Svg {
