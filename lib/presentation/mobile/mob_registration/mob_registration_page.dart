@@ -14,17 +14,19 @@ import 'package:go_router/go_router.dart';
 
 enum ButtonPressed { google }
 
-class AuthPage extends StatefulWidget {
-  const AuthPage({super.key});
+class MobRegistrationPage extends StatefulWidget {
+  const MobRegistrationPage({super.key});
 
   @override
-  State<AuthPage> createState() => _AuthPageState();
+  State<MobRegistrationPage> createState() => _MobRegistrationPageState();
 }
 
-class _AuthPageState extends State<AuthPage> {
+class _MobRegistrationPageState extends State<MobRegistrationPage> {
   ButtonPressed? _buttonPressed;
   String? email;
+  String? name;
   String? password;
+  String? passwordConfirm;
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -38,11 +40,23 @@ class _AuthPageState extends State<AuthPage> {
               const Text('DESOTO', style: AppStyles.s40w700),
               const SizedBox(height: 40),
               SizedBox(
-                width: 400,
+                width: 300,
                 child: TextFormField(
+                  onSaved: (value) => name = value,
                   validator: (value) =>
                       value!.isEmpty ? 'Заполните поле' : null,
+                  decoration: FormStyle.inputDecoration(hintText: 'Имя'
+                      // enable: _certificateString != null,
+                      ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: 300,
+                child: TextFormField(
                   onSaved: (value) => email = value,
+                  validator: (value) =>
+                      value!.isEmpty ? 'Заполните поле' : null,
                   decoration: FormStyle.inputDecoration(hintText: 'E-mail'
                       // enable: _certificateString != null,
                       ),
@@ -50,12 +64,25 @@ class _AuthPageState extends State<AuthPage> {
               ),
               const SizedBox(height: 20),
               SizedBox(
-                width: 400,
+                width: 300,
                 child: TextFormFieldVisiblePassword(
                   onSaved: (value) => password = value,
                   autofocus: false,
                   style: FormStyle.textStyle,
                   label: "Пароль",
+                  decoration: FormStyle.inputDecoration(
+                      // enable: _certificateString != null,
+                      ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: 300,
+                child: TextFormFieldVisiblePassword(
+                  onSaved: (value) => passwordConfirm = value,
+                  autofocus: false,
+                  style: FormStyle.textStyle,
+                  label: "Повторите пароль",
                   decoration: FormStyle.inputDecoration(
                       // enable: _certificateString != null,
                       ),
@@ -87,7 +114,7 @@ class _AuthPageState extends State<AuthPage> {
 
                         //move to main page after 1 second delay
                         Future.delayed(const Duration(microseconds: 500), () {
-                          context.go('/payment');
+                          context.go('/tasks');
                         });
                       },
                     ),
@@ -97,7 +124,7 @@ class _AuthPageState extends State<AuthPage> {
                   return Column(
                     children: [
                       MaterialButton(
-                          minWidth: 400,
+                          minWidth: 300,
                           padding: const EdgeInsets.all(16),
                           color: AppColors.green,
                           shape: RoundedRectangleBorder(
@@ -110,8 +137,10 @@ class _AuthPageState extends State<AuthPage> {
                               //     .createUserWithEmailAndPassword(
                               //         email: email!, password: password!);
                               context.read<SignInButtonsBloc>().add(
-                                  SignInButtonsEvent.signInWithEmail(
-                                      email: email!, password: password!));
+                                  SignInButtonsEvent.signUpWithEmail(
+                                      name: name!,
+                                      email: email!,
+                                      password: password!));
                               log(FirebaseAuth.instance.currentUser!.uid);
                             }
                           },
@@ -121,7 +150,7 @@ class _AuthPageState extends State<AuthPage> {
                                   width: 20,
                                   child: CircularProgressIndicator(
                                       color: AppColors.white))
-                              : Text('Вход',
+                              : Text('Зарегистрироваться',
                                   style: AppStyles.s18w500
                                       .copyWith(color: AppColors.white))),
                       const SizedBox(height: 20),
@@ -139,18 +168,18 @@ class _AuthPageState extends State<AuthPage> {
                               height: 48)),
                       const SizedBox(height: 20),
                       SizedBox(
-                        width: 400,
+                        width: 300,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text('Новый пользователь?',
+                            const Text('Назад к входу',
                                 style: AppStyles.s16w500),
                             const SizedBox(width: 20),
                             TextButton(
                                 onPressed: () {
-                                  context.go('/registration');
+                                  context.go('/auth');
                                 },
-                                child: Text('Регистрация',
+                                child: Text('Вход',
                                     style: AppStyles.s16w500
                                         .copyWith(color: AppColors.green)))
                           ],

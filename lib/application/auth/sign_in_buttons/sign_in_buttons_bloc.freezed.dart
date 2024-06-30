@@ -19,16 +19,25 @@ mixin _$SignInButtonsEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() signInWithGooglePressed,
+    required TResult Function(String email, String password) signInWithEmail,
+    required TResult Function(String name, String email, String password)
+        signUpWithEmail,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? signInWithGooglePressed,
+    TResult? Function(String email, String password)? signInWithEmail,
+    TResult? Function(String name, String email, String password)?
+        signUpWithEmail,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? signInWithGooglePressed,
+    TResult Function(String email, String password)? signInWithEmail,
+    TResult Function(String name, String email, String password)?
+        signUpWithEmail,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -36,16 +45,22 @@ mixin _$SignInButtonsEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(SignInWithGooglePressed value)
         signInWithGooglePressed,
+    required TResult Function(SignInWithEmail value) signInWithEmail,
+    required TResult Function(SignUpWithEmail value) signUpWithEmail,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(SignInWithGooglePressed value)? signInWithGooglePressed,
+    TResult? Function(SignInWithEmail value)? signInWithEmail,
+    TResult? Function(SignUpWithEmail value)? signUpWithEmail,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(SignInWithGooglePressed value)? signInWithGooglePressed,
+    TResult Function(SignInWithEmail value)? signInWithEmail,
+    TResult Function(SignUpWithEmail value)? signUpWithEmail,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -112,6 +127,9 @@ class _$SignInWithGooglePressedImpl implements SignInWithGooglePressed {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() signInWithGooglePressed,
+    required TResult Function(String email, String password) signInWithEmail,
+    required TResult Function(String name, String email, String password)
+        signUpWithEmail,
   }) {
     return signInWithGooglePressed();
   }
@@ -120,6 +138,9 @@ class _$SignInWithGooglePressedImpl implements SignInWithGooglePressed {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? signInWithGooglePressed,
+    TResult? Function(String email, String password)? signInWithEmail,
+    TResult? Function(String name, String email, String password)?
+        signUpWithEmail,
   }) {
     return signInWithGooglePressed?.call();
   }
@@ -128,6 +149,9 @@ class _$SignInWithGooglePressedImpl implements SignInWithGooglePressed {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? signInWithGooglePressed,
+    TResult Function(String email, String password)? signInWithEmail,
+    TResult Function(String name, String email, String password)?
+        signUpWithEmail,
     required TResult orElse(),
   }) {
     if (signInWithGooglePressed != null) {
@@ -141,6 +165,8 @@ class _$SignInWithGooglePressedImpl implements SignInWithGooglePressed {
   TResult map<TResult extends Object?>({
     required TResult Function(SignInWithGooglePressed value)
         signInWithGooglePressed,
+    required TResult Function(SignInWithEmail value) signInWithEmail,
+    required TResult Function(SignUpWithEmail value) signUpWithEmail,
   }) {
     return signInWithGooglePressed(this);
   }
@@ -149,6 +175,8 @@ class _$SignInWithGooglePressedImpl implements SignInWithGooglePressed {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(SignInWithGooglePressed value)? signInWithGooglePressed,
+    TResult? Function(SignInWithEmail value)? signInWithEmail,
+    TResult? Function(SignUpWithEmail value)? signUpWithEmail,
   }) {
     return signInWithGooglePressed?.call(this);
   }
@@ -157,6 +185,8 @@ class _$SignInWithGooglePressedImpl implements SignInWithGooglePressed {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(SignInWithGooglePressed value)? signInWithGooglePressed,
+    TResult Function(SignInWithEmail value)? signInWithEmail,
+    TResult Function(SignUpWithEmail value)? signUpWithEmail,
     required TResult orElse(),
   }) {
     if (signInWithGooglePressed != null) {
@@ -168,6 +198,329 @@ class _$SignInWithGooglePressedImpl implements SignInWithGooglePressed {
 
 abstract class SignInWithGooglePressed implements SignInButtonsEvent {
   const factory SignInWithGooglePressed() = _$SignInWithGooglePressedImpl;
+}
+
+/// @nodoc
+abstract class _$$SignInWithEmailImplCopyWith<$Res> {
+  factory _$$SignInWithEmailImplCopyWith(_$SignInWithEmailImpl value,
+          $Res Function(_$SignInWithEmailImpl) then) =
+      __$$SignInWithEmailImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String email, String password});
+}
+
+/// @nodoc
+class __$$SignInWithEmailImplCopyWithImpl<$Res>
+    extends _$SignInButtonsEventCopyWithImpl<$Res, _$SignInWithEmailImpl>
+    implements _$$SignInWithEmailImplCopyWith<$Res> {
+  __$$SignInWithEmailImplCopyWithImpl(
+      _$SignInWithEmailImpl _value, $Res Function(_$SignInWithEmailImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? email = null,
+    Object? password = null,
+  }) {
+    return _then(_$SignInWithEmailImpl(
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      password: null == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SignInWithEmailImpl implements SignInWithEmail {
+  const _$SignInWithEmailImpl({required this.email, required this.password});
+
+  @override
+  final String email;
+  @override
+  final String password;
+
+  @override
+  String toString() {
+    return 'SignInButtonsEvent.signInWithEmail(email: $email, password: $password)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SignInWithEmailImpl &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.password, password) ||
+                other.password == password));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, email, password);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SignInWithEmailImplCopyWith<_$SignInWithEmailImpl> get copyWith =>
+      __$$SignInWithEmailImplCopyWithImpl<_$SignInWithEmailImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() signInWithGooglePressed,
+    required TResult Function(String email, String password) signInWithEmail,
+    required TResult Function(String name, String email, String password)
+        signUpWithEmail,
+  }) {
+    return signInWithEmail(email, password);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? signInWithGooglePressed,
+    TResult? Function(String email, String password)? signInWithEmail,
+    TResult? Function(String name, String email, String password)?
+        signUpWithEmail,
+  }) {
+    return signInWithEmail?.call(email, password);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? signInWithGooglePressed,
+    TResult Function(String email, String password)? signInWithEmail,
+    TResult Function(String name, String email, String password)?
+        signUpWithEmail,
+    required TResult orElse(),
+  }) {
+    if (signInWithEmail != null) {
+      return signInWithEmail(email, password);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SignInWithGooglePressed value)
+        signInWithGooglePressed,
+    required TResult Function(SignInWithEmail value) signInWithEmail,
+    required TResult Function(SignUpWithEmail value) signUpWithEmail,
+  }) {
+    return signInWithEmail(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SignInWithGooglePressed value)? signInWithGooglePressed,
+    TResult? Function(SignInWithEmail value)? signInWithEmail,
+    TResult? Function(SignUpWithEmail value)? signUpWithEmail,
+  }) {
+    return signInWithEmail?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SignInWithGooglePressed value)? signInWithGooglePressed,
+    TResult Function(SignInWithEmail value)? signInWithEmail,
+    TResult Function(SignUpWithEmail value)? signUpWithEmail,
+    required TResult orElse(),
+  }) {
+    if (signInWithEmail != null) {
+      return signInWithEmail(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SignInWithEmail implements SignInButtonsEvent {
+  const factory SignInWithEmail(
+      {required final String email,
+      required final String password}) = _$SignInWithEmailImpl;
+
+  String get email;
+  String get password;
+  @JsonKey(ignore: true)
+  _$$SignInWithEmailImplCopyWith<_$SignInWithEmailImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SignUpWithEmailImplCopyWith<$Res> {
+  factory _$$SignUpWithEmailImplCopyWith(_$SignUpWithEmailImpl value,
+          $Res Function(_$SignUpWithEmailImpl) then) =
+      __$$SignUpWithEmailImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String name, String email, String password});
+}
+
+/// @nodoc
+class __$$SignUpWithEmailImplCopyWithImpl<$Res>
+    extends _$SignInButtonsEventCopyWithImpl<$Res, _$SignUpWithEmailImpl>
+    implements _$$SignUpWithEmailImplCopyWith<$Res> {
+  __$$SignUpWithEmailImplCopyWithImpl(
+      _$SignUpWithEmailImpl _value, $Res Function(_$SignUpWithEmailImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? email = null,
+    Object? password = null,
+  }) {
+    return _then(_$SignUpWithEmailImpl(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      password: null == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SignUpWithEmailImpl implements SignUpWithEmail {
+  const _$SignUpWithEmailImpl(
+      {required this.name, required this.email, required this.password});
+
+  @override
+  final String name;
+  @override
+  final String email;
+  @override
+  final String password;
+
+  @override
+  String toString() {
+    return 'SignInButtonsEvent.signUpWithEmail(name: $name, email: $email, password: $password)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SignUpWithEmailImpl &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.password, password) ||
+                other.password == password));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, name, email, password);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SignUpWithEmailImplCopyWith<_$SignUpWithEmailImpl> get copyWith =>
+      __$$SignUpWithEmailImplCopyWithImpl<_$SignUpWithEmailImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() signInWithGooglePressed,
+    required TResult Function(String email, String password) signInWithEmail,
+    required TResult Function(String name, String email, String password)
+        signUpWithEmail,
+  }) {
+    return signUpWithEmail(name, email, password);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? signInWithGooglePressed,
+    TResult? Function(String email, String password)? signInWithEmail,
+    TResult? Function(String name, String email, String password)?
+        signUpWithEmail,
+  }) {
+    return signUpWithEmail?.call(name, email, password);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? signInWithGooglePressed,
+    TResult Function(String email, String password)? signInWithEmail,
+    TResult Function(String name, String email, String password)?
+        signUpWithEmail,
+    required TResult orElse(),
+  }) {
+    if (signUpWithEmail != null) {
+      return signUpWithEmail(name, email, password);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SignInWithGooglePressed value)
+        signInWithGooglePressed,
+    required TResult Function(SignInWithEmail value) signInWithEmail,
+    required TResult Function(SignUpWithEmail value) signUpWithEmail,
+  }) {
+    return signUpWithEmail(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SignInWithGooglePressed value)? signInWithGooglePressed,
+    TResult? Function(SignInWithEmail value)? signInWithEmail,
+    TResult? Function(SignUpWithEmail value)? signUpWithEmail,
+  }) {
+    return signUpWithEmail?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SignInWithGooglePressed value)? signInWithGooglePressed,
+    TResult Function(SignInWithEmail value)? signInWithEmail,
+    TResult Function(SignUpWithEmail value)? signUpWithEmail,
+    required TResult orElse(),
+  }) {
+    if (signUpWithEmail != null) {
+      return signUpWithEmail(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SignUpWithEmail implements SignInButtonsEvent {
+  const factory SignUpWithEmail(
+      {required final String name,
+      required final String email,
+      required final String password}) = _$SignUpWithEmailImpl;
+
+  String get name;
+  String get email;
+  String get password;
+  @JsonKey(ignore: true)
+  _$$SignUpWithEmailImplCopyWith<_$SignUpWithEmailImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

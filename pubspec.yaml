@@ -12,8 +12,10 @@ dependencies:
   another_flushbar: ^1.12.30
   bloc: ^8.1.4
   cloud_firestore: ^5.0.2
+  crypto: ^3.0.3
   cupertino_icons: ^1.0.6
   dartz: ^0.10.1
+  dio: ^5.4.3+1
   firebase_auth: ^5.1.1
   firebase_core: ^3.1.1
   flutter:

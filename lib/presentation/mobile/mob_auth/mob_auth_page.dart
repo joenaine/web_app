@@ -14,14 +14,14 @@ import 'package:go_router/go_router.dart';
 
 enum ButtonPressed { google }
 
-class AuthPage extends StatefulWidget {
-  const AuthPage({super.key});
+class MobAuthPage extends StatefulWidget {
+  const MobAuthPage({super.key});
 
   @override
-  State<AuthPage> createState() => _AuthPageState();
+  State<MobAuthPage> createState() => _MobAuthPageState();
 }
 
-class _AuthPageState extends State<AuthPage> {
+class _MobAuthPageState extends State<MobAuthPage> {
   ButtonPressed? _buttonPressed;
   String? email;
   String? password;
@@ -38,7 +38,7 @@ class _AuthPageState extends State<AuthPage> {
               const Text('DESOTO', style: AppStyles.s40w700),
               const SizedBox(height: 40),
               SizedBox(
-                width: 400,
+                width: 300,
                 child: TextFormField(
                   validator: (value) =>
                       value!.isEmpty ? 'Заполните поле' : null,
@@ -50,7 +50,7 @@ class _AuthPageState extends State<AuthPage> {
               ),
               const SizedBox(height: 20),
               SizedBox(
-                width: 400,
+                width: 300,
                 child: TextFormFieldVisiblePassword(
                   onSaved: (value) => password = value,
                   autofocus: false,
@@ -87,7 +87,7 @@ class _AuthPageState extends State<AuthPage> {
 
                         //move to main page after 1 second delay
                         Future.delayed(const Duration(microseconds: 500), () {
-                          context.go('/payment');
+                          context.go('/tasks');
                         });
                       },
                     ),
@@ -97,7 +97,7 @@ class _AuthPageState extends State<AuthPage> {
                   return Column(
                     children: [
                       MaterialButton(
-                          minWidth: 400,
+                          minWidth: 300,
                           padding: const EdgeInsets.all(16),
                           color: AppColors.green,
                           shape: RoundedRectangleBorder(
@@ -125,8 +125,7 @@ class _AuthPageState extends State<AuthPage> {
                                   style: AppStyles.s18w500
                                       .copyWith(color: AppColors.white))),
                       const SizedBox(height: 20),
-                      const Text('Или зарегиструйтесь через',
-                          style: AppStyles.s16w500),
+                      const Text('Или войдите через', style: AppStyles.s16w500),
                       const SizedBox(height: 20),
                       IconButton(
                           onPressed: () {
@@ -139,7 +138,7 @@ class _AuthPageState extends State<AuthPage> {
                               height: 48)),
                       const SizedBox(height: 20),
                       SizedBox(
-                        width: 400,
+                        width: 300,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

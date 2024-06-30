@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:desoto_web/domain/auth/auth_failure.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
@@ -17,11 +19,50 @@ class FirebaseAuthFacade {
     this._googleSignIn,
   );
 
-  @override
   Future<Option<User>> getSignedInUser() async =>
       optionOf(_firebaseAuth.currentUser?.toDomain());
 
-  @override
+  Future<Either<AuthFailure, Unit>> signUpWithEmail(
+      {required String email, required String password}) async {
+    try {
+      final regUser = await _firebaseAuth.createUserWithEmailAndPassword(
+          email: email, password: password);
+
+      return right(unit);
+    } on auth.FirebaseAuthException catch (error) {
+      if (error.code == 'email-already-in-use') {
+        return left(const AuthFailure.credentialAlreadyUsed());
+      }
+    } catch (e) {
+      print("AUTH_ERROR: $e");
+      return left(const AuthFailure.serverError());
+    }
+    return left(const AuthFailure.serverError());
+  }
+
+  Future<Either<AuthFailure, Unit>> signInWithEmail(
+      {required String email, required String password}) async {
+    try {
+      final authUser = await _firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
+
+      return right(unit);
+    } on auth.FirebaseAuthException catch (error) {
+      if (error.code == 'invalid-credential') {
+        return left(const AuthFailure.invalidCredentials());
+      }
+      if (error.code == 'invalid-email') {
+        return left(const AuthFailure.invalidCredentials());
+      }
+      log('ERRORCODE: ${error.code}');
+    } catch (e) {
+      log("AUTH_ERROR: $e");
+
+      return left(const AuthFailure.serverError());
+    }
+    return left(const AuthFailure.serverError());
+  }
+
   Future<Either<AuthFailure, Unit>> signInWithGoogle() async {
     try {
       final googleUser = await _googleSignIn.signIn();
@@ -50,13 +91,11 @@ class FirebaseAuthFacade {
     }
   }
 
-  @override
   Future<void> signOut() => Future.wait([
         _googleSignIn.signOut(),
         _firebaseAuth.signOut(),
       ]);
 
-  @override
   Future<Either<AuthFailure, Unit>> linkAccountWithGoogle() async {
     try {
       final googleUser = await _googleSignIn.signIn();
@@ -86,10 +125,8 @@ class FirebaseAuthFacade {
     }
   }
 
-  @override
   Future<void> deleteAccount() => _firebaseAuth.currentUser!.delete();
 
-  @override
   Stream<User?> watchUserChange() =>
       _firebaseAuth.userChanges().map((user) => user?.toDomain());
 }

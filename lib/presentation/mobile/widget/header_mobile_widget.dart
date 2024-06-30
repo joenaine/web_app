@@ -1,5 +1,6 @@
 import 'package:desoto_web/core/app_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class HeaderMobileWidget extends StatelessWidget {
   const HeaderMobileWidget({
@@ -44,9 +45,20 @@ class HeaderMobileWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 40),
-            const Text(
-              'Войти',
-              style: AppStyles.s16w500,
+            Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: () {
+                  context.go('/auth');
+                },
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    'Войти',
+                    style: AppStyles.s16w500,
+                  ),
+                ),
+              ),
             ),
             const SizedBox(width: 40),
             const Text(

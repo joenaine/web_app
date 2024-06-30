@@ -20,6 +20,7 @@ mixin _$AuthFailure {
   TResult when<TResult extends Object?>({
     required TResult Function() cancelledByUser,
     required TResult Function() serverError,
+    required TResult Function() invalidCredentials,
     required TResult Function() networkError,
     required TResult Function() credentialAlreadyUsed,
   }) =>
@@ -28,6 +29,7 @@ mixin _$AuthFailure {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? cancelledByUser,
     TResult? Function()? serverError,
+    TResult? Function()? invalidCredentials,
     TResult? Function()? networkError,
     TResult? Function()? credentialAlreadyUsed,
   }) =>
@@ -36,6 +38,7 @@ mixin _$AuthFailure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? cancelledByUser,
     TResult Function()? serverError,
+    TResult Function()? invalidCredentials,
     TResult Function()? networkError,
     TResult Function()? credentialAlreadyUsed,
     required TResult orElse(),
@@ -45,6 +48,7 @@ mixin _$AuthFailure {
   TResult map<TResult extends Object?>({
     required TResult Function(CancelledByUser value) cancelledByUser,
     required TResult Function(ServerError value) serverError,
+    required TResult Function(InvalidCredentials value) invalidCredentials,
     required TResult Function(NetworkError value) networkError,
     required TResult Function(CredentialAlreadyUsed value)
         credentialAlreadyUsed,
@@ -54,6 +58,7 @@ mixin _$AuthFailure {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(CancelledByUser value)? cancelledByUser,
     TResult? Function(ServerError value)? serverError,
+    TResult? Function(InvalidCredentials value)? invalidCredentials,
     TResult? Function(NetworkError value)? networkError,
     TResult? Function(CredentialAlreadyUsed value)? credentialAlreadyUsed,
   }) =>
@@ -62,6 +67,7 @@ mixin _$AuthFailure {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(CancelledByUser value)? cancelledByUser,
     TResult Function(ServerError value)? serverError,
+    TResult Function(InvalidCredentials value)? invalidCredentials,
     TResult Function(NetworkError value)? networkError,
     TResult Function(CredentialAlreadyUsed value)? credentialAlreadyUsed,
     required TResult orElse(),
@@ -127,6 +133,7 @@ class _$CancelledByUserImpl implements CancelledByUser {
   TResult when<TResult extends Object?>({
     required TResult Function() cancelledByUser,
     required TResult Function() serverError,
+    required TResult Function() invalidCredentials,
     required TResult Function() networkError,
     required TResult Function() credentialAlreadyUsed,
   }) {
@@ -138,6 +145,7 @@ class _$CancelledByUserImpl implements CancelledByUser {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? cancelledByUser,
     TResult? Function()? serverError,
+    TResult? Function()? invalidCredentials,
     TResult? Function()? networkError,
     TResult? Function()? credentialAlreadyUsed,
   }) {
@@ -149,6 +157,7 @@ class _$CancelledByUserImpl implements CancelledByUser {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? cancelledByUser,
     TResult Function()? serverError,
+    TResult Function()? invalidCredentials,
     TResult Function()? networkError,
     TResult Function()? credentialAlreadyUsed,
     required TResult orElse(),
@@ -164,6 +173,7 @@ class _$CancelledByUserImpl implements CancelledByUser {
   TResult map<TResult extends Object?>({
     required TResult Function(CancelledByUser value) cancelledByUser,
     required TResult Function(ServerError value) serverError,
+    required TResult Function(InvalidCredentials value) invalidCredentials,
     required TResult Function(NetworkError value) networkError,
     required TResult Function(CredentialAlreadyUsed value)
         credentialAlreadyUsed,
@@ -176,6 +186,7 @@ class _$CancelledByUserImpl implements CancelledByUser {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(CancelledByUser value)? cancelledByUser,
     TResult? Function(ServerError value)? serverError,
+    TResult? Function(InvalidCredentials value)? invalidCredentials,
     TResult? Function(NetworkError value)? networkError,
     TResult? Function(CredentialAlreadyUsed value)? credentialAlreadyUsed,
   }) {
@@ -187,6 +198,7 @@ class _$CancelledByUserImpl implements CancelledByUser {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(CancelledByUser value)? cancelledByUser,
     TResult Function(ServerError value)? serverError,
+    TResult Function(InvalidCredentials value)? invalidCredentials,
     TResult Function(NetworkError value)? networkError,
     TResult Function(CredentialAlreadyUsed value)? credentialAlreadyUsed,
     required TResult orElse(),
@@ -242,6 +254,7 @@ class _$ServerErrorImpl implements ServerError {
   TResult when<TResult extends Object?>({
     required TResult Function() cancelledByUser,
     required TResult Function() serverError,
+    required TResult Function() invalidCredentials,
     required TResult Function() networkError,
     required TResult Function() credentialAlreadyUsed,
   }) {
@@ -253,6 +266,7 @@ class _$ServerErrorImpl implements ServerError {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? cancelledByUser,
     TResult? Function()? serverError,
+    TResult? Function()? invalidCredentials,
     TResult? Function()? networkError,
     TResult? Function()? credentialAlreadyUsed,
   }) {
@@ -264,6 +278,7 @@ class _$ServerErrorImpl implements ServerError {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? cancelledByUser,
     TResult Function()? serverError,
+    TResult Function()? invalidCredentials,
     TResult Function()? networkError,
     TResult Function()? credentialAlreadyUsed,
     required TResult orElse(),
@@ -279,6 +294,7 @@ class _$ServerErrorImpl implements ServerError {
   TResult map<TResult extends Object?>({
     required TResult Function(CancelledByUser value) cancelledByUser,
     required TResult Function(ServerError value) serverError,
+    required TResult Function(InvalidCredentials value) invalidCredentials,
     required TResult Function(NetworkError value) networkError,
     required TResult Function(CredentialAlreadyUsed value)
         credentialAlreadyUsed,
@@ -291,6 +307,7 @@ class _$ServerErrorImpl implements ServerError {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(CancelledByUser value)? cancelledByUser,
     TResult? Function(ServerError value)? serverError,
+    TResult? Function(InvalidCredentials value)? invalidCredentials,
     TResult? Function(NetworkError value)? networkError,
     TResult? Function(CredentialAlreadyUsed value)? credentialAlreadyUsed,
   }) {
@@ -302,6 +319,7 @@ class _$ServerErrorImpl implements ServerError {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(CancelledByUser value)? cancelledByUser,
     TResult Function(ServerError value)? serverError,
+    TResult Function(InvalidCredentials value)? invalidCredentials,
     TResult Function(NetworkError value)? networkError,
     TResult Function(CredentialAlreadyUsed value)? credentialAlreadyUsed,
     required TResult orElse(),
@@ -315,6 +333,127 @@ class _$ServerErrorImpl implements ServerError {
 
 abstract class ServerError implements AuthFailure {
   const factory ServerError() = _$ServerErrorImpl;
+}
+
+/// @nodoc
+abstract class _$$InvalidCredentialsImplCopyWith<$Res> {
+  factory _$$InvalidCredentialsImplCopyWith(_$InvalidCredentialsImpl value,
+          $Res Function(_$InvalidCredentialsImpl) then) =
+      __$$InvalidCredentialsImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$InvalidCredentialsImplCopyWithImpl<$Res>
+    extends _$AuthFailureCopyWithImpl<$Res, _$InvalidCredentialsImpl>
+    implements _$$InvalidCredentialsImplCopyWith<$Res> {
+  __$$InvalidCredentialsImplCopyWithImpl(_$InvalidCredentialsImpl _value,
+      $Res Function(_$InvalidCredentialsImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$InvalidCredentialsImpl implements InvalidCredentials {
+  const _$InvalidCredentialsImpl();
+
+  @override
+  String toString() {
+    return 'AuthFailure.invalidCredentials()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$InvalidCredentialsImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() cancelledByUser,
+    required TResult Function() serverError,
+    required TResult Function() invalidCredentials,
+    required TResult Function() networkError,
+    required TResult Function() credentialAlreadyUsed,
+  }) {
+    return invalidCredentials();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? cancelledByUser,
+    TResult? Function()? serverError,
+    TResult? Function()? invalidCredentials,
+    TResult? Function()? networkError,
+    TResult? Function()? credentialAlreadyUsed,
+  }) {
+    return invalidCredentials?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? cancelledByUser,
+    TResult Function()? serverError,
+    TResult Function()? invalidCredentials,
+    TResult Function()? networkError,
+    TResult Function()? credentialAlreadyUsed,
+    required TResult orElse(),
+  }) {
+    if (invalidCredentials != null) {
+      return invalidCredentials();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(CancelledByUser value) cancelledByUser,
+    required TResult Function(ServerError value) serverError,
+    required TResult Function(InvalidCredentials value) invalidCredentials,
+    required TResult Function(NetworkError value) networkError,
+    required TResult Function(CredentialAlreadyUsed value)
+        credentialAlreadyUsed,
+  }) {
+    return invalidCredentials(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(CancelledByUser value)? cancelledByUser,
+    TResult? Function(ServerError value)? serverError,
+    TResult? Function(InvalidCredentials value)? invalidCredentials,
+    TResult? Function(NetworkError value)? networkError,
+    TResult? Function(CredentialAlreadyUsed value)? credentialAlreadyUsed,
+  }) {
+    return invalidCredentials?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(CancelledByUser value)? cancelledByUser,
+    TResult Function(ServerError value)? serverError,
+    TResult Function(InvalidCredentials value)? invalidCredentials,
+    TResult Function(NetworkError value)? networkError,
+    TResult Function(CredentialAlreadyUsed value)? credentialAlreadyUsed,
+    required TResult orElse(),
+  }) {
+    if (invalidCredentials != null) {
+      return invalidCredentials(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class InvalidCredentials implements AuthFailure {
+  const factory InvalidCredentials() = _$InvalidCredentialsImpl;
 }
 
 /// @nodoc
@@ -357,6 +496,7 @@ class _$NetworkErrorImpl implements NetworkError {
   TResult when<TResult extends Object?>({
     required TResult Function() cancelledByUser,
     required TResult Function() serverError,
+    required TResult Function() invalidCredentials,
     required TResult Function() networkError,
     required TResult Function() credentialAlreadyUsed,
   }) {
@@ -368,6 +508,7 @@ class _$NetworkErrorImpl implements NetworkError {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? cancelledByUser,
     TResult? Function()? serverError,
+    TResult? Function()? invalidCredentials,
     TResult? Function()? networkError,
     TResult? Function()? credentialAlreadyUsed,
   }) {
@@ -379,6 +520,7 @@ class _$NetworkErrorImpl implements NetworkError {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? cancelledByUser,
     TResult Function()? serverError,
+    TResult Function()? invalidCredentials,
     TResult Function()? networkError,
     TResult Function()? credentialAlreadyUsed,
     required TResult orElse(),
@@ -394,6 +536,7 @@ class _$NetworkErrorImpl implements NetworkError {
   TResult map<TResult extends Object?>({
     required TResult Function(CancelledByUser value) cancelledByUser,
     required TResult Function(ServerError value) serverError,
+    required TResult Function(InvalidCredentials value) invalidCredentials,
     required TResult Function(NetworkError value) networkError,
     required TResult Function(CredentialAlreadyUsed value)
         credentialAlreadyUsed,
@@ -406,6 +549,7 @@ class _$NetworkErrorImpl implements NetworkError {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(CancelledByUser value)? cancelledByUser,
     TResult? Function(ServerError value)? serverError,
+    TResult? Function(InvalidCredentials value)? invalidCredentials,
     TResult? Function(NetworkError value)? networkError,
     TResult? Function(CredentialAlreadyUsed value)? credentialAlreadyUsed,
   }) {
@@ -417,6 +561,7 @@ class _$NetworkErrorImpl implements NetworkError {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(CancelledByUser value)? cancelledByUser,
     TResult Function(ServerError value)? serverError,
+    TResult Function(InvalidCredentials value)? invalidCredentials,
     TResult Function(NetworkError value)? networkError,
     TResult Function(CredentialAlreadyUsed value)? credentialAlreadyUsed,
     required TResult orElse(),
@@ -474,6 +619,7 @@ class _$CredentialAlreadyUsedImpl implements CredentialAlreadyUsed {
   TResult when<TResult extends Object?>({
     required TResult Function() cancelledByUser,
     required TResult Function() serverError,
+    required TResult Function() invalidCredentials,
     required TResult Function() networkError,
     required TResult Function() credentialAlreadyUsed,
   }) {
@@ -485,6 +631,7 @@ class _$CredentialAlreadyUsedImpl implements CredentialAlreadyUsed {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? cancelledByUser,
     TResult? Function()? serverError,
+    TResult? Function()? invalidCredentials,
     TResult? Function()? networkError,
     TResult? Function()? credentialAlreadyUsed,
   }) {
@@ -496,6 +643,7 @@ class _$CredentialAlreadyUsedImpl implements CredentialAlreadyUsed {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? cancelledByUser,
     TResult Function()? serverError,
+    TResult Function()? invalidCredentials,
     TResult Function()? networkError,
     TResult Function()? credentialAlreadyUsed,
     required TResult orElse(),
@@ -511,6 +659,7 @@ class _$CredentialAlreadyUsedImpl implements CredentialAlreadyUsed {
   TResult map<TResult extends Object?>({
     required TResult Function(CancelledByUser value) cancelledByUser,
     required TResult Function(ServerError value) serverError,
+    required TResult Function(InvalidCredentials value) invalidCredentials,
     required TResult Function(NetworkError value) networkError,
     required TResult Function(CredentialAlreadyUsed value)
         credentialAlreadyUsed,
@@ -523,6 +672,7 @@ class _$CredentialAlreadyUsedImpl implements CredentialAlreadyUsed {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(CancelledByUser value)? cancelledByUser,
     TResult? Function(ServerError value)? serverError,
+    TResult? Function(InvalidCredentials value)? invalidCredentials,
     TResult? Function(NetworkError value)? networkError,
     TResult? Function(CredentialAlreadyUsed value)? credentialAlreadyUsed,
   }) {
@@ -534,6 +684,7 @@ class _$CredentialAlreadyUsedImpl implements CredentialAlreadyUsed {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(CancelledByUser value)? cancelledByUser,
     TResult Function(ServerError value)? serverError,
+    TResult Function(InvalidCredentials value)? invalidCredentials,
     TResult Function(NetworkError value)? networkError,
     TResult Function(CredentialAlreadyUsed value)? credentialAlreadyUsed,
     required TResult orElse(),
