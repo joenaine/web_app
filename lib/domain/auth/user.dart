@@ -8,7 +8,8 @@ class User with _$User {
   const factory User({
     required UniqueId id,
     String? username,
-    required bool isAnonymous,
+    String? email,
+    bool? isAnonymous,
     String? profileImageUrl,
   }) = _User;
 }

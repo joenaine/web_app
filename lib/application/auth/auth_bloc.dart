@@ -1,3 +1,4 @@
+import 'package:desoto_web/domain/auth/user.dart';
 import 'package:desoto_web/infrastructure/auth/firebase_auth_facade.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -19,7 +20,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           emit(
             userOption.fold(
               () => const AuthState.unauthenticated(),
-              (_) => const AuthState.authenticated(),
+              (r) => AuthState.authenticated(user: r),
             ),
           );
         },

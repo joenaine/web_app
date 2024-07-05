@@ -11,13 +11,12 @@ class RegistrationRepository {
   Future<Either<AuthFailure, Unit>> saveUser({
     required String id,
     required String name,
-    required String password,
+    required String email,
+    String? password,
   }) async {
     try {
-      await firestore
-          .collection('users')
-          .doc(id)
-          .set({'id': id, 'name': name, 'password': password});
+      await firestore.collection('users').doc(id).set(
+          {'id': id, 'name': name, 'password': password ?? '', 'email': email});
       return right(unit);
     } on FirebaseAuthException catch (error) {
       if (error.code == 'email-already-in-use') {

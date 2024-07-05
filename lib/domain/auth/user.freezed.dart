@@ -18,7 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$User {
   UniqueId get id => throw _privateConstructorUsedError;
   String? get username => throw _privateConstructorUsedError;
-  bool get isAnonymous => throw _privateConstructorUsedError;
+  String? get email => throw _privateConstructorUsedError;
+  bool? get isAnonymous => throw _privateConstructorUsedError;
   String? get profileImageUrl => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -33,7 +34,8 @@ abstract class $UserCopyWith<$Res> {
   $Res call(
       {UniqueId id,
       String? username,
-      bool isAnonymous,
+      String? email,
+      bool? isAnonymous,
       String? profileImageUrl});
 }
 
@@ -52,7 +54,8 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   $Res call({
     Object? id = null,
     Object? username = freezed,
-    Object? isAnonymous = null,
+    Object? email = freezed,
+    Object? isAnonymous = freezed,
     Object? profileImageUrl = freezed,
   }) {
     return _then(_value.copyWith(
@@ -64,10 +67,14 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String?,
-      isAnonymous: null == isAnonymous
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isAnonymous: freezed == isAnonymous
           ? _value.isAnonymous
           : isAnonymous // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
       profileImageUrl: freezed == profileImageUrl
           ? _value.profileImageUrl
           : profileImageUrl // ignore: cast_nullable_to_non_nullable
@@ -86,7 +93,8 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
   $Res call(
       {UniqueId id,
       String? username,
-      bool isAnonymous,
+      String? email,
+      bool? isAnonymous,
       String? profileImageUrl});
 }
 
@@ -102,7 +110,8 @@ class __$$UserImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? username = freezed,
-    Object? isAnonymous = null,
+    Object? email = freezed,
+    Object? isAnonymous = freezed,
     Object? profileImageUrl = freezed,
   }) {
     return _then(_$UserImpl(
@@ -114,10 +123,14 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String?,
-      isAnonymous: null == isAnonymous
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isAnonymous: freezed == isAnonymous
           ? _value.isAnonymous
           : isAnonymous // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
       profileImageUrl: freezed == profileImageUrl
           ? _value.profileImageUrl
           : profileImageUrl // ignore: cast_nullable_to_non_nullable
@@ -132,7 +145,8 @@ class _$UserImpl implements _User {
   const _$UserImpl(
       {required this.id,
       this.username,
-      required this.isAnonymous,
+      this.email,
+      this.isAnonymous,
       this.profileImageUrl});
 
   @override
@@ -140,13 +154,15 @@ class _$UserImpl implements _User {
   @override
   final String? username;
   @override
-  final bool isAnonymous;
+  final String? email;
+  @override
+  final bool? isAnonymous;
   @override
   final String? profileImageUrl;
 
   @override
   String toString() {
-    return 'User(id: $id, username: $username, isAnonymous: $isAnonymous, profileImageUrl: $profileImageUrl)';
+    return 'User(id: $id, username: $username, email: $email, isAnonymous: $isAnonymous, profileImageUrl: $profileImageUrl)';
   }
 
   @override
@@ -157,6 +173,7 @@ class _$UserImpl implements _User {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.username, username) ||
                 other.username == username) &&
+            (identical(other.email, email) || other.email == email) &&
             (identical(other.isAnonymous, isAnonymous) ||
                 other.isAnonymous == isAnonymous) &&
             (identical(other.profileImageUrl, profileImageUrl) ||
@@ -164,8 +181,8 @@ class _$UserImpl implements _User {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, username, isAnonymous, profileImageUrl);
+  int get hashCode => Object.hash(
+      runtimeType, id, username, email, isAnonymous, profileImageUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -178,7 +195,8 @@ abstract class _User implements User {
   const factory _User(
       {required final UniqueId id,
       final String? username,
-      required final bool isAnonymous,
+      final String? email,
+      final bool? isAnonymous,
       final String? profileImageUrl}) = _$UserImpl;
 
   @override
@@ -186,7 +204,9 @@ abstract class _User implements User {
   @override
   String? get username;
   @override
-  bool get isAnonymous;
+  String? get email;
+  @override
+  bool? get isAnonymous;
   @override
   String? get profileImageUrl;
   @override

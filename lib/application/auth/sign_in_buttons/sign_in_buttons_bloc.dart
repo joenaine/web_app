@@ -60,7 +60,10 @@ class SignInButtonsBloc extends Bloc<SignInButtonsEvent, SignInButtonsState> {
             final authFire = FirebaseAuth.instance;
             User? usr = authFire.currentUser;
             return await _registrationRepository.saveUser(
-                id: usr!.uid, name: e.name, password: e.password);
+                email: e.email,
+                id: usr!.uid,
+                name: e.name,
+                password: e.password);
           });
 
           emit(
@@ -85,7 +88,12 @@ class SignInButtonsBloc extends Bloc<SignInButtonsEvent, SignInButtonsState> {
       ),
     );
 
-    final failureOrSuccess = await forwardedCall();
+    final failureOrSuccess = await forwardedCall().then((e) async {
+      final authFire = FirebaseAuth.instance;
+      User? usr = authFire.currentUser;
+      return await _registrationRepository.saveUser(
+          id: usr!.uid, name: usr.displayName!, email: usr.email!);
+    });
 
     emit(
       state.copyWith(

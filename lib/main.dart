@@ -1,5 +1,6 @@
 import 'package:desoto_web/application/auth/auth_bloc.dart';
 import 'package:desoto_web/application/auth/sign_in_buttons/sign_in_buttons_bloc.dart';
+import 'package:desoto_web/application/bloc/profile_bloc.dart';
 import 'package:desoto_web/firebase_options.dart';
 import 'package:desoto_web/generated/l10n.dart';
 import 'package:desoto_web/injection.dart';
@@ -32,9 +33,8 @@ class MyApp extends StatelessWidget {
           create: (context) =>
               getIt<AuthBloc>()..add(const AuthEvent.authCheckRequested()),
         ),
-        BlocProvider(
-          create: (context) => getIt<SignInButtonsBloc>(),
-        ),
+        BlocProvider(create: (context) => getIt<SignInButtonsBloc>()),
+        BlocProvider(create: (context) => getIt<ProfileBloc>()),
       ],
       child: MaterialApp.router(
         routerConfig: router,
