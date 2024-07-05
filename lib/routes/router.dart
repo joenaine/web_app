@@ -6,7 +6,7 @@ import 'package:desoto_web/presentation/desktop/registration/registration_page.d
 import 'package:desoto_web/presentation/desktop/tasks/tasks_page.dart';
 import 'package:desoto_web/presentation/mobile/mob_auth/mob_auth_page.dart';
 import 'package:desoto_web/presentation/mobile/mob_registration/mob_registration_page.dart';
-import 'package:flutter/foundation.dart';
+import 'package:desoto_web/presentation/task_generator/task_generator_page.dart';
 import 'package:go_router/go_router.dart';
 
 // GoRouter configuration
@@ -41,6 +41,11 @@ final router = GoRouter(
       name: 'payment',
       path: '/payment',
       builder: (context, state) => const PaymentPage(),
+    ),
+    GoRoute(
+      name: 'taskgenerator',
+      path: '/taskgenerator',
+      builder: (context, state) => const TaskGenerator(),
     ),
   ],
 );

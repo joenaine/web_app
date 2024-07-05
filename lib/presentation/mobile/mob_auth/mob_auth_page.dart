@@ -87,7 +87,7 @@ class _MobAuthPageState extends State<MobAuthPage> {
 
                         //move to main page after 1 second delay
                         Future.delayed(const Duration(microseconds: 500), () {
-                          context.go('/tasks');
+                          context.go('/taskgenerator');
                         });
                       },
                     ),

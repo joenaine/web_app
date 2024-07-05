@@ -38,16 +38,16 @@ class ThirdDesktopWidget extends StatelessWidget {
               SecondRightSideWidget()
             ],
           ),
-          const SizedBox(height: 100),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Image.asset(AppAssets.images.gds, height: 120),
-              Image.asset(AppAssets.images.desoto, height: 120),
-              Image.asset(AppAssets.images.impro, height: 120),
-              Image.asset(AppAssets.images.izidos, height: 120)
-            ],
-          )
+          // const SizedBox(height: 100),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //   children: [
+          //     Image.asset(AppAssets.images.gds, height: 120),
+          //     Image.asset(AppAssets.images.desoto, height: 120),
+          //     Image.asset(AppAssets.images.impro, height: 120),
+          //     Image.asset(AppAssets.images.izidos, height: 120)
+          //   ],
+          // )
         ],
       ),
     );

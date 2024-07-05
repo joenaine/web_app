@@ -87,7 +87,7 @@ class _AuthPageState extends State<AuthPage> {
 
                         //move to main page after 1 second delay
                         Future.delayed(const Duration(microseconds: 500), () {
-                          context.go('/payment');
+                          context.go('/taskgenerator');
                         });
                       },
                     ),

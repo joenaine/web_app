@@ -61,9 +61,20 @@ class HeaderMobileWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 40),
-            const Text(
-              'Регистрация',
-              style: AppStyles.s16w500,
+            Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: () {
+                  context.go('/registration');
+                },
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    'Регистрация',
+                    style: AppStyles.s16w500,
+                  ),
+                ),
+              ),
             )
           ],
         )

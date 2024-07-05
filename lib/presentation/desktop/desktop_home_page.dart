@@ -40,18 +40,13 @@ class _DesktopHomePageState extends State<DesktopHomePage> {
           child: Column(
             children: [
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 100.0, vertical: 50),
-                child: Column(
-                  children: [
-                    HeaderDesktopWidget(
-                      scrollController: _scrollController,
-                    ),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 100.0, vertical: 50),
+                  child: Column(children: [
+                    HeaderDesktopWidget(scrollController: _scrollController),
                     const SizedBox(height: 100),
-                    const PrimaryDesktopWidget(),
-                  ],
-                ),
-              ),
+                    const PrimaryDesktopWidget()
+                  ])),
               const SecondDesktopWidget(),
               const ThirdDesktopWidget(),
               const FourthDesktopWidget(),

@@ -75,19 +75,19 @@ class ThirdMobileWidget extends StatelessWidget {
                   )
                 ]),
           ),
-          const SizedBox(height: 50),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Image.asset(AppAssets.images.gds, height: 90),
-              const SizedBox(height: 30),
-              Image.asset(AppAssets.images.desoto, height: 90),
-              const SizedBox(height: 30),
-              Image.asset(AppAssets.images.impro, height: 90),
-              const SizedBox(height: 30),
-              Image.asset(AppAssets.images.izidosmob, height: 90)
-            ],
-          ),
+          // const SizedBox(height: 50),
+          // Column(
+          //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //   children: [
+          //     Image.asset(AppAssets.images.gds, height: 90),
+          //     const SizedBox(height: 30),
+          //     Image.asset(AppAssets.images.desoto, height: 90),
+          //     const SizedBox(height: 30),
+          //     Image.asset(AppAssets.images.impro, height: 90),
+          //     const SizedBox(height: 30),
+          //     Image.asset(AppAssets.images.izidosmob, height: 90)
+          //   ],
+          // ),
           const SizedBox(height: 100),
         ],
       ),

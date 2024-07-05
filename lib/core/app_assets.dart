@@ -18,7 +18,7 @@ class _Images {
   final String studentHackathon = 'assets/images/2.png';
   final String startupIncubator = 'assets/images/1.png';
   final String gds = 'assets/images/gds.png';
-  final String desoto = 'assets/images/desoto.jpg';
+  final String desoto = 'assets/images/desoto.png';
   final String impro = 'assets/images/impro.png';
   final String izidos = 'assets/images/izidos.png';
   final String tada = 'assets/images/tada.png';
