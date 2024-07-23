@@ -288,7 +288,7 @@ class _TaskGeneratorState extends State<TaskGenerator> {
                                               //     locale: 'en');
                                               //TODO: Change duration
                                               Future.delayed(const Duration(
-                                                      microseconds: 500))
+                                                      seconds: 2))
                                                   .then((value) {
                                                 setState(() {
                                                   isLoading = false;
