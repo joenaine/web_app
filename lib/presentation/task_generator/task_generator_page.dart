@@ -16,7 +16,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import 'task_screen_mobile.dart';
+import 'mobile/task_screen_mobile.dart';
+
+int? queryNumber;
 
 class TaskGenerator extends StatefulWidget {
   const TaskGenerator({super.key});
@@ -27,7 +29,7 @@ class TaskGenerator extends StatefulWidget {
 
 class _TaskGeneratorState extends State<TaskGenerator> {
   bool isLoading = false;
-  int? queryNumber;
+
   String? aiResponse;
 
   final user = FirebaseAuth.instance.currentUser;
@@ -37,232 +39,275 @@ class _TaskGeneratorState extends State<TaskGenerator> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return ResponsiveBuilder(
-      mobileBuilder: (context, constraints) => queryNumber != null
-          ? TaskScreenMobile(
-              queryNumber: queryNumber!,
-            )
-          : Scaffold(
-              drawer: BlocBuilder<ProfileBloc, ProfileState>(
-                builder: (context, state) {
-                  return state.map(initial: (value) {
-                    return const SizedBox();
-                  }, loading: (value) {
-                    return const SizedBox();
-                  }, success: (e) {
-                    return MyDrawer(
-                      headerTitle: e.userModel?.name ?? '',
-                    );
-                  }, failure: (value) {
-                    return const SizedBox();
-                  });
-                },
-              ),
-              body: SingleChildScrollView(
-                child: Center(
-                  child: isLoading
-                      ? Padding(
-                          padding: EdgeInsets.only(top: size.height * .3),
-                          child: Column(
-                            children: [
-                              const CircularProgressIndicator(
-                                color: AppColors.dark,
-                              ),
-                              const SizedBox(height: 20),
-                              TextSize.s18w700('Генерируем задачу')
-                            ],
-                          ),
+    return BlocConsumer<AuthBloc, AuthState>(
+      listener: (context, state) {
+        state.mapOrNull(
+          authenticated: (value) {
+            context
+                .read<ProfileBloc>()
+                .add(ProfileEvent.getProfile(id: user!.uid));
+          },
+        );
+      },
+      builder: (context, state) {
+        return state.map(
+            initial: (_) => const Scaffold(body: Text('Не авторизован')),
+            authenticated: (e) => ResponsiveBuilder(
+                  mobileBuilder: (context, constraints) => queryNumber != null
+                      ? TaskScreenMobile(
+                          queryNumber: queryNumber!,
                         )
-                      : Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const SizedBox(height: 20),
-                            BlocBuilder<ProfileBloc, ProfileState>(
-                              builder: (context, state) {
-                                return state.map(
-                                  initial: (value) {
-                                    return const SizedBox();
-                                  },
-                                  loading: (value) {
-                                    return const SizedBox();
-                                  },
-                                  success: (value) {
-                                    return Align(
-                                      alignment: Alignment.topLeft,
+                      : Scaffold(
+                          drawer: BlocBuilder<ProfileBloc, ProfileState>(
+                            builder: (context, state) {
+                              return state.map(initial: (value) {
+                                return const SizedBox();
+                              }, loading: (value) {
+                                return const SizedBox();
+                              }, success: (e) {
+                                return MyDrawer(
+                                  headerTitle: e.userModel?.name ?? '',
+                                );
+                              }, failure: (value) {
+                                return const SizedBox();
+                              });
+                            },
+                          ),
+                          body: SingleChildScrollView(
+                            child: Center(
+                              child: isLoading
+                                  ? Padding(
+                                      padding: EdgeInsets.only(
+                                          top: size.height * .3),
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
                                         children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              Scaffold.of(context).openDrawer();
-                                            },
-                                            child: Container(
-                                                padding:
-                                                    const EdgeInsets.all(16),
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(12),
-                                                ),
-                                                child: const Icon(Icons.menu)),
+                                          const CircularProgressIndicator(
+                                            color: AppColors.dark,
                                           ),
+                                          const SizedBox(height: 20),
+                                          TextSize.s18w700('Генерируем задачу')
                                         ],
                                       ),
-                                    );
-                                  },
-                                  failure: (value) {
-                                    return const SizedBox();
-                                  },
-                                );
-                              },
-                            ),
-                            const SizedBox(height: 40),
-                            Image.asset(AppAssets.images.wand,
-                                height: size.height * .12),
-                            const SizedBox(height: 30),
-                            TextSize.s32w700('Сгенерируй\nзадание на дизайн'),
-                            const SizedBox(height: 30),
-                            TextSize.s16w400(
-                                'Используй этот простой генератор,\n чтобы получить рандомное задание\nдля практики твоих дизайнерских навыков. \nТы получишь тематику проекта, \nцветовую гамму, графику и немного контента.',
-                                textAlign: TextAlign.center),
-                            const SizedBox(height: 50),
-                            SizedBox(
-                              width: 300,
-                              height: 50,
-                              child: GeneralButton(
-                                text: 'Сгенерировать задание',
-                                onPressed: () {
-                                  setState(() {
-                                    isLoading = true;
-                                  });
-                                  Future.delayed(const Duration(seconds: 2))
-                                      .then((value) {
-                                    setState(() {
-                                      isLoading = false;
-                                      queryNumber = Random().nextInt(5);
-                                    });
-                                  });
-                                },
-                              ),
-                            )
-                          ],
-                        ),
-                ),
-              ),
-            ),
-      desktopBuilder: (context, constraints) => queryNumber != null
-          ? TaskScreen(queryNumber: queryNumber!)
-          : Scaffold(
-              drawer: BlocBuilder<ProfileBloc, ProfileState>(
-                builder: (context, state) {
-                  return state.map(initial: (value) {
-                    return const SizedBox();
-                  }, loading: (value) {
-                    return const SizedBox();
-                  }, success: (e) {
-                    return MyDrawer(
-                      headerTitle: e.userModel?.name ?? '',
-                    );
-                  }, failure: (value) {
-                    return const SizedBox();
-                  });
-                },
-              ),
-              body: SingleChildScrollView(
-                child: Center(
-                  child: isLoading
-                      ? Padding(
-                          padding: EdgeInsets.only(top: size.height * .1),
-                          child: Column(
-                            children: [
-                              const CircularProgressIndicator(
-                                color: AppColors.dark,
-                              ),
-                              const SizedBox(height: 20),
-                              TextSize.s18w700('Генерируем задачу')
-                            ],
-                          ),
-                        )
-                      : Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            BlocBuilder<ProfileBloc, ProfileState>(
-                              builder: (context, state) {
-                                return state.map(
-                                  initial: (value) {
-                                    return const SizedBox();
-                                  },
-                                  loading: (value) {
-                                    return const SizedBox();
-                                  },
-                                  success: (value) {
-                                    return Align(
-                                      alignment: Alignment.topLeft,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              Scaffold.of(context).openDrawer();
+                                    )
+                                  : Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        const SizedBox(height: 20),
+                                        BlocBuilder<ProfileBloc, ProfileState>(
+                                          builder: (context, state) {
+                                            return state.map(
+                                              initial: (value) {
+                                                return const SizedBox();
+                                              },
+                                              loading: (value) {
+                                                return const SizedBox();
+                                              },
+                                              success: (value) {
+                                                return Align(
+                                                  alignment: Alignment.topLeft,
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.end,
+                                                    children: [
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          Scaffold.of(context)
+                                                              .openDrawer();
+                                                        },
+                                                        child: Container(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(16),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          12),
+                                                            ),
+                                                            child: const Icon(
+                                                                Icons.menu)),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                );
+                                              },
+                                              failure: (value) {
+                                                return const SizedBox();
+                                              },
+                                            );
+                                          },
+                                        ),
+                                        const SizedBox(height: 40),
+                                        Image.asset(AppAssets.images.wand,
+                                            height: size.height * .12),
+                                        const SizedBox(height: 30),
+                                        TextSize.s32w700(
+                                            'Сгенерируй\nзадание на дизайн'),
+                                        const SizedBox(height: 30),
+                                        TextSize.s16w400(
+                                            'Используй этот простой генератор,\n чтобы получить рандомное задание\nдля практики твоих дизайнерских навыков. \nТы получишь тематику проекта, \nцветовую гамму, графику и немного контента.',
+                                            textAlign: TextAlign.center),
+                                        const SizedBox(height: 50),
+                                        SizedBox(
+                                          width: 300,
+                                          height: 50,
+                                          child: GeneralButton(
+                                            text: 'Сгенерировать задание',
+                                            onPressed: () {
+                                              setState(() {
+                                                isLoading = true;
+                                              });
+                                              Future.delayed(const Duration(
+                                                      seconds: 2))
+                                                  .then((value) {
+                                                setState(() {
+                                                  isLoading = false;
+                                                  queryNumber =
+                                                      Random().nextInt(5);
+                                                });
+                                              });
                                             },
-                                            child: Container(
-                                                padding:
-                                                    const EdgeInsets.all(16),
-                                                margin:
-                                                    const EdgeInsets.all(16),
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(12),
-                                                ),
-                                                child: const Icon(Icons.menu)),
                                           ),
+                                        )
+                                      ],
+                                    ),
+                            ),
+                          ),
+                        ),
+                  desktopBuilder: (context, constraints) => queryNumber != null
+                      ? TaskScreen(queryNumber: queryNumber!)
+                      : Scaffold(
+                          drawer: BlocBuilder<ProfileBloc, ProfileState>(
+                            builder: (context, state) {
+                              return state.map(initial: (value) {
+                                return const SizedBox();
+                              }, loading: (value) {
+                                return const SizedBox();
+                              }, success: (e) {
+                                return MyDrawer(
+                                  headerTitle: e.userModel?.name ?? '',
+                                );
+                              }, failure: (value) {
+                                return const SizedBox();
+                              });
+                            },
+                          ),
+                          body: SingleChildScrollView(
+                            child: Center(
+                              child: isLoading
+                                  ? Padding(
+                                      padding: EdgeInsets.only(
+                                          top: size.height * .1),
+                                      child: Column(
+                                        children: [
+                                          const CircularProgressIndicator(
+                                            color: AppColors.dark,
+                                          ),
+                                          const SizedBox(height: 20),
+                                          TextSize.s18w700('Генерируем задачу')
                                         ],
                                       ),
-                                    );
-                                  },
-                                  failure: (value) {
-                                    return const SizedBox();
-                                  },
-                                );
-                              },
+                                    )
+                                  : Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        BlocBuilder<ProfileBloc, ProfileState>(
+                                          builder: (context, state) {
+                                            return state.map(
+                                              initial: (value) {
+                                                return const SizedBox();
+                                              },
+                                              loading: (value) {
+                                                return const SizedBox();
+                                              },
+                                              success: (value) {
+                                                return Align(
+                                                  alignment: Alignment.topLeft,
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.end,
+                                                    children: [
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          Scaffold.of(context)
+                                                              .openDrawer();
+                                                        },
+                                                        child: Container(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(16),
+                                                            margin:
+                                                                const EdgeInsets
+                                                                    .all(16),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          12),
+                                                            ),
+                                                            child: const Icon(
+                                                                Icons.menu)),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                );
+                                              },
+                                              failure: (value) {
+                                                return const SizedBox();
+                                              },
+                                            );
+                                          },
+                                        ),
+                                        Image.asset(AppAssets.images.wand,
+                                            height: size.height * .15),
+                                        const SizedBox(height: 15),
+                                        TextSize.s56w700(
+                                            'Сгенерируй\nзадание на дизайн'),
+                                        const SizedBox(height: 30),
+                                        TextSize.s14w500(
+                                            'Используй этот простой генератор, чтобы получить рандомное задание\nдля практики твоих дизайнерских навыков. Ты получишь тематику\nпроекта, цветовую гамму, графику и немного контента.'),
+                                        const SizedBox(height: 40),
+                                        SizedBox(
+                                          width: 400,
+                                          height: 50,
+                                          child: GeneralButton(
+                                            text: 'Сгенерировать задание',
+                                            onPressed: () async {
+                                              setState(() {
+                                                isLoading = true;
+                                              });
+                                              // aiResponse = await AiRepository.sendRequest(
+                                              //     locale: 'en');
+                                              //TODO: Change duration
+                                              Future.delayed(const Duration(
+                                                      microseconds: 500))
+                                                  .then((value) {
+                                                setState(() {
+                                                  isLoading = false;
+                                                  queryNumber =
+                                                      Random().nextInt(5);
+                                                });
+                                              });
+                                            },
+                                          ),
+                                        )
+                                      ],
+                                    ),
                             ),
-                            Image.asset(AppAssets.images.wand,
-                                height: size.height * .15),
-                            const SizedBox(height: 15),
-                            TextSize.s56w700('Сгенерируй\nзадание на дизайн'),
-                            const SizedBox(height: 30),
-                            TextSize.s14w500(
-                                'Используй этот простой генератор, чтобы получить рандомное задание\nдля практики твоих дизайнерских навыков. Ты получишь тематику\nпроекта, цветовую гамму, графику и немного контента.'),
-                            const SizedBox(height: 40),
-                            SizedBox(
-                              width: 400,
-                              height: 50,
-                              child: GeneralButton(
-                                text: 'Сгенерировать задание',
-                                onPressed: () async {
-                                  setState(() {
-                                    isLoading = true;
-                                  });
-                                  // aiResponse = await AiRepository.sendRequest(
-                                  //     locale: 'en');
-                                  Future.delayed(const Duration(seconds: 2))
-                                      .then((value) {
-                                    setState(() {
-                                      isLoading = false;
-                                      queryNumber = Random().nextInt(5);
-                                    });
-                                  });
-                                },
-                              ),
-                            )
-                          ],
+                          ),
                         ),
                 ),
-              ),
-            ),
+            unauthenticated: (value) =>
+                const Scaffold(body: Text('Не авторизован')));
+      },
     );
   }
 }

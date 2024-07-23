@@ -24,7 +24,7 @@ class OneVisionPayService {
       "currency": "KZT",
       "description": "Тест",
       "reference": "pay_${DateTime.now().millisecondsSinceEpoch}",
-      "success_url": "https://desoto.web.app/auth/taskgenerator'",
+      "success_url": "https://desoto.web.app/auth/taskgenerator",
       "failure_url": "https://www.google.com/search?q=error",
       "lang": "ru",
       "ip": await getIpAddress(),

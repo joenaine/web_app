@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:another_flushbar/flushbar_helper.dart';
+import 'package:desoto_web/application/bloc/profile_bloc.dart';
 import 'package:desoto_web/core/constants/app_assets.dart';
 import 'package:desoto_web/core/constants/app_colors_const.dart';
 import 'package:desoto_web/core/constants/app_internal_variable_const.dart';
@@ -8,14 +9,18 @@ import 'package:desoto_web/core/constants/app_styles_const.dart';
 import 'package:desoto_web/infrastructure/profile/profile_repository.dart';
 import 'package:desoto_web/injection.dart';
 import 'package:desoto_web/presentation/common_widgets/app_hide_keyboard_widget.dart';
+import 'package:desoto_web/presentation/common_widgets/responsive_builder.dart';
+import 'package:desoto_web/presentation/task_generator/task_generator_page.dart';
 import 'package:desoto_web/presentation/task_generator/widgets/basic_title_widget.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:go_router/go_router.dart';
 import 'dart:html' as html;
 
 import 'widgets/text_fontsize.dart';
@@ -85,6 +90,22 @@ class _TaskScreenState extends State<TaskScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const TaskHeader(isTask: true),
+      drawer: BlocBuilder<ProfileBloc, ProfileState>(
+        builder: (context, state) {
+          return state.map(initial: (value) {
+            return const SizedBox();
+          }, loading: (value) {
+            return const SizedBox();
+          }, success: (e) {
+            return MyDrawer(
+              headerTitle: e.userModel?.name ?? '',
+            );
+          }, failure: (value) {
+            return const SizedBox();
+          });
+        },
+      ),
       body: AppHideKeyBoardWidget(
         child: SingleChildScrollView(
           child: Column(
@@ -372,4 +393,83 @@ class _TaskScreenState extends State<TaskScreen> {
       ),
     );
   }
+}
+
+class TaskHeader extends StatelessWidget implements PreferredSizeWidget {
+  const TaskHeader({
+    super.key,
+    this.isProgress = false,
+    this.isTask = false,
+    this.isProfile = false,
+  });
+  final bool? isProgress;
+  final bool? isTask;
+  final bool? isProfile;
+
+  @override
+  Widget build(BuildContext context) {
+    bool isMobile = ResponsiveBuilder.isMobile(context);
+    return AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: () {
+                  context.go('/progress');
+                },
+                borderRadius: BorderRadius.circular(8),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Мой прогресс',
+                    style: isProgress! ? AppStyles.s24w700 : AppStyles.s16w500,
+                  ),
+                ),
+              ),
+            ),
+            Material(
+              color: Colors.transparent,
+              child: InkWell(
+                borderRadius: BorderRadius.circular(8),
+                onTap: () {
+                  context.go('/auth/taskgenerator');
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Технические задания',
+                    style: isTask! ? AppStyles.s24w700 : AppStyles.s16w500,
+                  ),
+                ),
+              ),
+            ),
+            Material(
+              color: Colors.transparent,
+              child: InkWell(
+                borderRadius: BorderRadius.circular(8),
+                onTap: () {
+                  Scaffold.of(context).openDrawer();
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Личный кабинет',
+                    style: isProfile! ? AppStyles.s24w700 : AppStyles.s16w500,
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
+        bottom: const PreferredSize(
+            preferredSize: Size.fromHeight(1), child: Divider()));
+  }
+
+  @override
+  // TODO: implement preferredSize
+  Size get preferredSize => const Size.fromHeight(80);
 }

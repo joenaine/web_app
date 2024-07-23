@@ -4,11 +4,8 @@ class UserModel {
   final String? id;
   final String? name;
   final String? email;
-  UserModel({
-    this.id,
-    this.name,
-    this.email,
-  });
+  final List<int>? savedTasks;
+  UserModel({this.id, this.name, this.email, this.savedTasks});
 
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
@@ -22,6 +19,9 @@ class UserModel {
     if (email != null) {
       result.addAll({'email': email});
     }
+    if (savedTasks != null) {
+      result.addAll({'savedTasks': savedTasks});
+    }
 
     return result;
   }
@@ -31,6 +31,7 @@ class UserModel {
       id: map['id'],
       name: map['name'],
       email: map['email'],
+      savedTasks: List<int>.from(map['savedTasks']),
     );
   }
 

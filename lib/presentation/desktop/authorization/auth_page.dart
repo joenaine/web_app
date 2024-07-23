@@ -81,17 +81,17 @@ class _AuthPageState extends State<AuthPage> {
                         //move to main page after 1 second delay
                         Future.delayed(const Duration(microseconds: 500),
                             () async {
-                          // final result =
-                          //     await OneVisionPayService().makePayment(
-                          //   email: FirebaseAuth.instance.currentUser!.email!,
-                          // );
+                          final result =
+                              await OneVisionPayService().makePayment(
+                            email: FirebaseAuth.instance.currentUser!.email!,
+                          );
 
-                          // result.fold(
-                          //     (l) => FlushbarHelper.createError(message: l)
-                          //         .show(context), (r) {
-                          //   html.window.open(r, 'new tab');
-                          // });
-                          context.go('/auth/taskgenerator');
+                          result.fold(
+                              (l) => FlushbarHelper.createError(message: l)
+                                  .show(context), (r) {
+                            html.window.open(r, 'new tab');
+                          });
+                          // context.go('/auth/taskgenerator');
                         });
                       },
                     ),

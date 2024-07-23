@@ -9,6 +9,8 @@ class BasePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const TaskGenerator();
+    return ResponsiveBuilder(
+        mobileBuilder: (context, constraints) => const MobileHomePage(),
+        desktopBuilder: (context, constraints) => const DesktopHomePage());
   }
 }

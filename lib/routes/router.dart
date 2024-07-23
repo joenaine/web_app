@@ -6,6 +6,8 @@ import 'package:desoto_web/presentation/desktop/registration/registration_page.d
 import 'package:desoto_web/presentation/desktop/tasks/tasks_page.dart';
 import 'package:desoto_web/presentation/mobile/mob_auth/mob_auth_page.dart';
 import 'package:desoto_web/presentation/mobile/mob_registration/mob_registration_page.dart';
+import 'package:desoto_web/presentation/task_generator/mobile/progress_mobile/progress_mobile_screen.dart';
+import 'package:desoto_web/presentation/task_generator/progress/progress_screen.dart';
 import 'package:desoto_web/presentation/task_generator/task_generator_page.dart';
 import 'package:go_router/go_router.dart';
 
@@ -37,6 +39,13 @@ final router = GoRouter(
       builder: (context, state) => ResponsiveBuilder.isDesktop(context)
           ? const AuthPage()
           : const MobAuthPage(),
+    ),
+    GoRoute(
+      name: 'progress',
+      path: '/progress',
+      builder: (context, state) => ResponsiveBuilder.isDesktop(context)
+          ? const ProgressScreen()
+          : const ProgressMobileScreen(),
     ),
     GoRoute(
       name: 'tasks',
