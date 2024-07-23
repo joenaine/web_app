@@ -45,7 +45,9 @@ class _DesktopHomePageState extends State<DesktopHomePage> {
                   child: Column(children: [
                     HeaderDesktopWidget(scrollController: _scrollController),
                     const SizedBox(height: 100),
-                    const PrimaryDesktopWidget()
+                    PrimaryDesktopWidget(
+                      scrollController: _scrollController,
+                    )
                   ])),
               const SecondDesktopWidget(),
               const ThirdDesktopWidget(),

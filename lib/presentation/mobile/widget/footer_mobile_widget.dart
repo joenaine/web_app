@@ -42,9 +42,9 @@ class FooterMobileWidget extends StatelessWidget {
             title: 'PR поддержка',
             subtitle:
                 'У вас есть дизайн, которым вы хотели бы поделиться со всем миром? Поделитесь с нами, и мы расскажем о нем.',
-            agreementText: 'Условия подписки',
+            agreementText: 'Пользователькое соглашение',
             onTap: () {
-              html.window.open(usloviyaPodpiski, 'new tab');
+              html.window.open(polzovatelSoglashenie, 'new tab');
             },
           ),
           SizedBox(
@@ -87,14 +87,14 @@ class FooterMobileWidget extends StatelessWidget {
                 onTap: () {
                   html.window.open(oferta, 'new tab');
                 },
-                child: const Text('Публичная оферта',
+                child: const Text('Публичная\nоферта',
                     textAlign: TextAlign.center)),
             InkWell(
                 onTap: () {
-                  html.window.open(usloviyaPodpiski, 'new tab');
+                  html.window.open(polzovatelSoglashenie, 'new tab');
                 },
-                child:
-                    const Text('Условия подписки', textAlign: TextAlign.center))
+                child: const Text('Пользователькое\nсоглашение',
+                    textAlign: TextAlign.center))
           ]),
           const SizedBox(height: 50),
           const SizedBox(

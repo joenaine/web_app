@@ -1,6 +1,7 @@
 import 'package:desoto_web/core/app_colors.dart';
 import 'package:desoto_web/core/app_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class FifthDesktopWidget extends StatelessWidget {
   const FifthDesktopWidget({
@@ -20,33 +21,34 @@ class FifthDesktopWidget extends StatelessWidget {
           ),
           SizedBox(height: 50),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              PricePlanWidget(
-                backroundColor: Color.fromRGBO(233, 240, 253, 1),
-                frontColor: AppColors.primary,
-                plan: 'Lite',
-                title: 'Твой 33 дневный спринт Web-design challange',
-                subtitle:
-                    'Серия веб-дизайн заданий  сгенерированные на основе Искусственного интеллекта',
-                price: '15 000тг',
-              ),
+              // PricePlanWidget(
+              //   backroundColor: Color.fromRGBO(233, 240, 253, 1),
+              //   frontColor: AppColors.primary,
+              //   plan: 'Lite',
+              //   title: 'Твой 33 дневный спринт Web-design challange',
+              //   subtitle:
+              //       'Серия веб-дизайн заданий  сгенерированные на основе Искусственного интеллекта',
+              //   price: '15 000тг',
+              // ),
               PricePlanWidget(
                 backroundColor: Color.fromRGBO(86, 86, 225, 1),
                 frontColor: AppColors.white,
                 plan: 'PRO',
                 title: 'Твой 33 дневный спринт Web-design challange',
                 subtitle:
-                    'Получай реальные веб-дизайн задачи от именитых IT компаний',
+                    'Серия веб-дизайн заданий  сгенерированные на основе Искусственного интеллекта',
                 price: 'Путь к твоей цели всего за\n45 000тг',
               ),
+              SizedBox(width: 15),
               PricePlanWidget(
                 backroundColor: Color.fromRGBO(254, 248, 225, 1),
                 frontColor: AppColors.primary,
                 plan: 'Enterprise',
                 title: 'Для школ по UXUI/WEB design',
                 subtitle:
-                    'Подними уровень практикисвоих учеников на новый этап',
+                    'Подними уровень практики своих учеников на новый этап',
                 price: 'Индивидуальное предложение',
               ),
             ],
@@ -99,7 +101,9 @@ class PricePlanWidget extends StatelessWidget {
                       backgroundColor: AppColors.white,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16))),
-                  onPressed: () {},
+                  onPressed: () {
+                    context.go('/auth');
+                  },
                   child: const Padding(
                     padding: EdgeInsets.all(16.0),
                     child: Text(

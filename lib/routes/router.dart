@@ -28,6 +28,12 @@ final router = GoRouter(
     GoRoute(
       name: 'auth',
       path: '/auth',
+      routes: [
+        GoRoute(
+          path: 'taskgenerator',
+          builder: (context, state) => const TaskGenerator(),
+        ),
+      ],
       builder: (context, state) => ResponsiveBuilder.isDesktop(context)
           ? const AuthPage()
           : const MobAuthPage(),
@@ -41,11 +47,6 @@ final router = GoRouter(
       name: 'payment',
       path: '/payment',
       builder: (context, state) => const PaymentPage(),
-    ),
-    GoRoute(
-      name: 'taskgenerator',
-      path: '/taskgenerator',
-      builder: (context, state) => const TaskGenerator(),
     ),
   ],
 );

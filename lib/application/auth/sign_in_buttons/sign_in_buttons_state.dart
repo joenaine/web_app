@@ -5,7 +5,7 @@ class SignInButtonsState with _$SignInButtonsState {
   const factory SignInButtonsState({
     required bool showErrorMessages,
     required bool isSubmitting,
-    required Option<Either<AuthFailure, dynamic>> authFailureOrSuccessOption,
+    required Option<Either<String, dynamic>> authFailureOrSuccessOption,
   }) = _SignInButtonsState;
 
   factory SignInButtonsState.initial() => SignInButtonsState(

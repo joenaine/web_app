@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site":"desoto",
+    "site":"uichallenger",
     "public": "build/web",
     "ignore": [
       "firebase.json",

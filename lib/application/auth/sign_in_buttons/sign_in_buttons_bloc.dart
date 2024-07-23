@@ -1,7 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
-import 'package:desoto_web/domain/auth/auth_failure.dart';
 import 'package:desoto_web/infrastructure/auth/firebase_auth_facade.dart';
 import 'package:desoto_web/infrastructure/registration/registration_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -59,16 +59,18 @@ class SignInButtonsBloc extends Bloc<SignInButtonsEvent, SignInButtonsState> {
               .then((value) async {
             final authFire = FirebaseAuth.instance;
             User? usr = authFire.currentUser;
+            String encodedPass = base64Encode(utf8.encode(e.password));
             return await _registrationRepository.saveUser(
                 email: e.email,
                 id: usr!.uid,
                 name: e.name,
-                password: e.password);
+                password: encodedPass);
           });
 
           emit(
             state.copyWith(
               isSubmitting: false,
+              showErrorMessages: true,
               authFailureOrSuccessOption: some(failureOrSuccess),
             ),
           );
@@ -78,7 +80,7 @@ class SignInButtonsBloc extends Bloc<SignInButtonsEvent, SignInButtonsState> {
   }
 
   Future<void> _performActionOnAuthFacade(
-    Future<Either<AuthFailure, Unit>> Function() forwardedCall,
+    Future<Either<String, Unit>> Function() forwardedCall,
     Emitter<SignInButtonsState> emit,
   ) async {
     emit(

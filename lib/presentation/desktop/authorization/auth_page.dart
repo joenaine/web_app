@@ -5,12 +5,14 @@ import 'package:desoto_web/application/auth/sign_in_buttons/sign_in_buttons_bloc
 import 'package:desoto_web/core/app_assets.dart';
 import 'package:desoto_web/core/app_colors.dart';
 import 'package:desoto_web/core/app_styles.dart';
+import 'package:desoto_web/infrastructure/payment/one_vision_service.dart';
 import 'package:desoto_web/presentation/common_widgets/styles.dart';
 import 'package:desoto_web/presentation/common_widgets/text_form_field_visible_password.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'dart:html' as html;
 
 enum ButtonPressed { google }
 
@@ -70,24 +72,26 @@ class _AuthPageState extends State<AuthPage> {
                     (either) => either.fold(
                       (failure) {
                         FlushbarHelper.createError(
-                          message: failure.map(
-                            cancelledByUser: (_) => 'Cancelled',
-                            serverError: (_) => 'Server error, try again later',
-                            credentialAlreadyUsed: (_) =>
-                                'Credentials already used',
-                            networkError: (_) =>
-                                'Network error, check your internet connection',
-                            invalidCredentials: (value) =>
-                                "Данные не действительны",
-                          ),
+                          message: failure,
                         ).show(context);
                       },
                       (_) {
                         //check with button was pressed and trigger success animation
 
                         //move to main page after 1 second delay
-                        Future.delayed(const Duration(microseconds: 500), () {
-                          context.go('/taskgenerator');
+                        Future.delayed(const Duration(microseconds: 500),
+                            () async {
+                          // final result =
+                          //     await OneVisionPayService().makePayment(
+                          //   email: FirebaseAuth.instance.currentUser!.email!,
+                          // );
+
+                          // result.fold(
+                          //     (l) => FlushbarHelper.createError(message: l)
+                          //         .show(context), (r) {
+                          //   html.window.open(r, 'new tab');
+                          // });
+                          context.go('/auth/taskgenerator');
                         });
                       },
                     ),

@@ -61,20 +61,20 @@ class ThirdMobileWidget extends StatelessWidget {
             ),
           ),
           SmoothPageIndicator(controller: _pageController, count: 3),
-          const SizedBox(height: 100),
-          RichText(
-            textAlign: TextAlign.center,
-            text: TextSpan(
-                text: 'Реальными ',
-                style: AppStyles.s24w700,
-                children: [
-                  TextSpan(
-                    text: 'кейсами от наших\nпартнеров',
-                    style: AppStyles.s24w700
-                        .copyWith(color: AppColors.secondary, height: 1.5),
-                  )
-                ]),
-          ),
+          // const SizedBox(height: 100),
+          // RichText(
+          //   textAlign: TextAlign.center,
+          //   text: TextSpan(
+          //       text: 'Реальными ',
+          //       style: AppStyles.s24w700,
+          //       children: [
+          //         TextSpan(
+          //           text: 'кейсами от наших\nпартнеров',
+          //           style: AppStyles.s24w700
+          //               .copyWith(color: AppColors.secondary, height: 1.5),
+          //         )
+          //       ]),
+          // ),
           // const SizedBox(height: 50),
           // Column(
           //   mainAxisAlignment: MainAxisAlignment.spaceAround,

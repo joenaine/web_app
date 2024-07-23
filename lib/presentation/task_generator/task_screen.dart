@@ -1,10 +1,16 @@
+import 'dart:math';
+
+import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:desoto_web/core/constants/app_assets.dart';
 import 'package:desoto_web/core/constants/app_colors_const.dart';
 import 'package:desoto_web/core/constants/app_internal_variable_const.dart';
 import 'package:desoto_web/core/constants/app_styles_const.dart';
+import 'package:desoto_web/infrastructure/profile/profile_repository.dart';
+import 'package:desoto_web/injection.dart';
 import 'package:desoto_web/presentation/common_widgets/app_hide_keyboard_widget.dart';
 import 'package:desoto_web/presentation/task_generator/widgets/basic_title_widget.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -16,8 +22,8 @@ import 'widgets/text_fontsize.dart';
 // import 'dart:html';
 
 class TaskScreen extends StatefulWidget {
-  const TaskScreen({super.key, this.queryNumber = 0});
-  final int queryNumber;
+  TaskScreen({super.key, this.queryNumber = 0});
+  int queryNumber;
 
   @override
   State<TaskScreen> createState() => _TaskScreenState();
@@ -84,12 +90,61 @@ class _TaskScreenState extends State<TaskScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              BasicTitleTaskWidget(title: 'ТЕМАТИКА ПРОЕКТА', children: [
-                TextSize.s40w700(AppExamples.topicTitle[widget.queryNumber],
-                    textAlign: TextAlign.start),
-                const SizedBox(height: 20),
-                TextSize.s16w400(AppExamples.topicSubtitle[widget.queryNumber])
-              ]),
+              BasicTitleTaskWidget(
+                  title: 'ТЕМАТИКА ПРОЕКТА',
+                  subWidget: Column(
+                    children: [
+                      Padding(
+                          padding: const EdgeInsets.only(top: 20.0),
+                          child: Material(
+                              color: Colors.transparent,
+                              child: InkWell(
+                                  borderRadius: BorderRadius.circular(100),
+                                  onTap: () {
+                                    widget.queryNumber = Random().nextInt(5);
+                                    setState(() {});
+                                  },
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Icon(Icons.refresh, size: 50),
+                                  )))),
+                      Padding(
+                          padding: const EdgeInsets.only(top: 10.0),
+                          child: Material(
+                              color: Colors.transparent,
+                              child: InkWell(
+                                  borderRadius: BorderRadius.circular(100),
+                                  onTap: () async {
+                                    final repo = getIt<ProfileRepository>();
+
+                                    final result = await repo.addTaskToProfile(
+                                        userId: FirebaseAuth
+                                            .instance.currentUser!.uid,
+                                        taskId: widget.queryNumber);
+
+                                    result.fold(
+                                        (l) => FlushbarHelper.createError(
+                                                message: l)
+                                            .show(context),
+                                        (r) => FlushbarHelper.createSuccess(
+                                                message:
+                                                    'Добавлено в избранное')
+                                            .show(context));
+                                  },
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Icon(Icons.add, size: 50),
+                                  )))),
+                    ],
+                  ),
+                  children: [
+                    TextSize.s40w700(
+                        AppExamples.taskList[widget.queryNumber].topicTitle,
+                        textAlign: TextAlign.start),
+                    const SizedBox(height: 20),
+                    TextSize.s16w400(
+                        AppExamples.taskList[widget.queryNumber].topicSubtitle)
+                  ]),
               BasicTitleTaskWidget(title: 'ШРИФТОВАЯ ПАРА', children: [
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
@@ -100,8 +155,8 @@ class _TaskScreenState extends State<TaskScreen> {
                         child: InkWell(
                           onTap: () {
                             html.window.open(
-                                AppExamples
-                                        .fontList[widget.queryNumber][0].link ??
+                                AppExamples.taskList[widget.queryNumber]
+                                        .fontList[0].link ??
                                     '',
                                 'new tab');
                           },
@@ -116,14 +171,16 @@ class _TaskScreenState extends State<TaskScreen> {
                                 Text(
                                   'Aa',
                                   style: AppExamples
-                                      .fontList[widget.queryNumber][0].font
+                                      .taskList[widget.queryNumber]
+                                      .fontList[0]
+                                      .font
                                       ?.copyWith(fontSize: 40),
                                   textAlign: TextAlign.start,
                                 ),
                                 const SizedBox(height: 10),
                                 TextSize.s14w500(
-                                    AppExamples.fontList[widget.queryNumber][0]
-                                            .title ??
+                                    AppExamples.taskList[widget.queryNumber]
+                                            .fontList[0].title ??
                                         '',
                                     color: AppColors.dark),
                                 TextSize.s12w400('Для заголовков')
@@ -138,8 +195,8 @@ class _TaskScreenState extends State<TaskScreen> {
                         child: InkWell(
                           onTap: () {
                             html.window.open(
-                                AppExamples
-                                        .fontList[widget.queryNumber][1].link ??
+                                AppExamples.taskList[widget.queryNumber]
+                                        .fontList[1].link ??
                                     '',
                                 'new tab');
                           },
@@ -154,13 +211,15 @@ class _TaskScreenState extends State<TaskScreen> {
                                 Text(
                                   'Aa',
                                   style: AppExamples
-                                      .fontList[widget.queryNumber][1].font
+                                      .taskList[widget.queryNumber]
+                                      .fontList[1]
+                                      .font
                                       ?.copyWith(fontSize: 40),
                                 ),
                                 const SizedBox(height: 10),
                                 TextSize.s14w500(
-                                    AppExamples.fontList[widget.queryNumber][1]
-                                            .title ??
+                                    AppExamples.taskList[widget.queryNumber]
+                                            .fontList[1].title ??
                                         '',
                                     color: AppColors.dark),
                                 TextSize.s12w400('Для текста')
@@ -191,7 +250,8 @@ class _TaskScreenState extends State<TaskScreen> {
                               onTap: () {
                                 Clipboard.setData(ClipboardData(
                                     text: AppExamples
-                                        .colorsCode[widget.queryNumber][i]));
+                                        .taskList[widget.queryNumber]
+                                        .colorsCode[i]));
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                         content: Text('Скопировано')));
@@ -203,7 +263,8 @@ class _TaskScreenState extends State<TaskScreen> {
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(8),
                                     color: AppExamples
-                                        .colors[widget.queryNumber][i]),
+                                        .taskList[widget.queryNumber]
+                                        .colors[i]),
                               ),
                             ),
                           ),
@@ -224,13 +285,13 @@ class _TaskScreenState extends State<TaskScreen> {
                       firstChild: SizedBox(
                         height: 300,
                         child: Html(
-                          data: AppExamples.contentList[widget
-                              .queryNumber], // Replace with your actual HTML content
+                          data: AppExamples.taskList[widget.queryNumber]
+                              .content, // Replace with your actual HTML content
                         ),
                       ),
                       secondChild: Html(
-                        data: AppExamples.contentList[widget
-                            .queryNumber], // Replace with your actual HTML content
+                        data: AppExamples.taskList[widget.queryNumber]
+                            .content, // Replace with your actual HTML content
                       ),
                       crossFadeState: _isVisible
                           ? CrossFadeState.showSecond

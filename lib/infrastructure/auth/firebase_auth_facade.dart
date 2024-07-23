@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
-import 'package:desoto_web/domain/auth/auth_failure.dart';
+import 'package:desoto_web/core/helpers/exception_helper.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
@@ -22,52 +22,44 @@ class FirebaseAuthFacade {
   Future<Option<User>> getSignedInUser() async =>
       optionOf(_firebaseAuth.currentUser?.toDomain());
 
-  Future<Either<AuthFailure, Unit>> signUpWithEmail(
+  Future<Either<String, Unit>> signUpWithEmail(
       {required String email, required String password}) async {
     try {
-      final regUser = await _firebaseAuth.createUserWithEmailAndPassword(
+      await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
 
       return right(unit);
     } on auth.FirebaseAuthException catch (error) {
-      if (error.code == 'email-already-in-use') {
-        return left(const AuthFailure.credentialAlreadyUsed());
-      }
+      log("AUTH_ERROR: $error");
+      return left(handleFirebaseAuthException(error));
     } catch (e) {
-      print("AUTH_ERROR: $e");
-      return left(const AuthFailure.serverError());
+      log("AUTH_ERROR: $e");
+      return left(e.toString());
     }
-    return left(const AuthFailure.serverError());
   }
 
-  Future<Either<AuthFailure, Unit>> signInWithEmail(
+  Future<Either<String, Unit>> signInWithEmail(
       {required String email, required String password}) async {
     try {
-      final authUser = await _firebaseAuth.signInWithEmailAndPassword(
+      await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
 
       return right(unit);
     } on auth.FirebaseAuthException catch (error) {
-      if (error.code == 'invalid-credential') {
-        return left(const AuthFailure.invalidCredentials());
-      }
-      if (error.code == 'invalid-email') {
-        return left(const AuthFailure.invalidCredentials());
-      }
       log('ERRORCODE: ${error.code}');
+      return left(handleFirebaseAuthException(error));
     } catch (e) {
       log("AUTH_ERROR: $e");
 
-      return left(const AuthFailure.serverError());
+      return left(e.toString());
     }
-    return left(const AuthFailure.serverError());
   }
 
-  Future<Either<AuthFailure, Unit>> signInWithGoogle() async {
+  Future<Either<String, Unit>> signInWithGoogle() async {
     try {
       final googleUser = await _googleSignIn.signIn();
       if (googleUser == null) {
-        return left(const AuthFailure.cancelledByUser());
+        return left('Cancelled');
       } else {
         final googleAuthentication = await googleUser.authentication;
 
@@ -83,10 +75,10 @@ class FirebaseAuthFacade {
       print('NETWORK_ERROR: $e ??');
       if (e.toString() ==
           "PlatformException(network_error, com.google.android.gms.common.api.ApiException: 7: , null, null)") {
-        return left(const AuthFailure.networkError());
+        return left('Network error, check your internet connection');
       } else {
         print("AUTH_ERROR: $e");
-        return left(const AuthFailure.serverError());
+        return left('Server error, try again later');
       }
     }
   }
@@ -95,35 +87,6 @@ class FirebaseAuthFacade {
         _googleSignIn.signOut(),
         _firebaseAuth.signOut(),
       ]);
-
-  Future<Either<AuthFailure, Unit>> linkAccountWithGoogle() async {
-    try {
-      final googleUser = await _googleSignIn.signIn();
-      if (googleUser == null) {
-        return left(const AuthFailure.cancelledByUser());
-      } else {
-        final googleAuthentication = await googleUser.authentication;
-
-        final authCredential = auth.GoogleAuthProvider.credential(
-          idToken: googleAuthentication.idToken,
-          accessToken: googleAuthentication.accessToken,
-        );
-        await _firebaseAuth.currentUser!.linkWithCredential(authCredential);
-        await _firebaseAuth.currentUser!
-            .updateDisplayName(googleUser.displayName);
-        await _firebaseAuth.currentUser!.updatePhotoURL(googleUser.photoUrl);
-        return right(unit);
-      }
-    } on auth.FirebaseAuthException catch (e) {
-      if (e.code == 'credential-already-in-use') {
-        print('CREDENTIAL ALREADY USED!!');
-        return left(const AuthFailure.credentialAlreadyUsed());
-      }
-      print('Failed with error code: ${e.code}');
-
-      return left(const AuthFailure.serverError());
-    }
-  }
 
   Future<void> deleteAccount() => _firebaseAuth.currentUser!.delete();
 

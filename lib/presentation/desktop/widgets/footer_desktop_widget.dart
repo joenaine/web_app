@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:html' as html;
 
-const String usloviyaPodpiski =
-    "https://docs.google.com/document/d/1TA7h5RXT-JGbwDWzrzPdBwk56lGKRfvdlkPH_T6hkSI/edit#heading=h.7br5nz4jdxmh";
+const String polzovatelSoglashenie =
+    "https://docs.google.com/document/d/1MlSjmRNYlY2jiqSDGNuIv4U_LoMdK3inlLVsDGmr-i4/edit?usp=sharing";
 const String oferta =
     "https://docs.google.com/document/d/1VowpZLnklgpxcN3HajhTl80nYrGWwyj7wxvwrckh2KA/edit#heading=h.um8sowdi6e84";
 const String politikaConf =
-    "https://docs.google.com/document/d/1slSCdz2y-GueFixS-YUURMUXg2p3P61mrzKuUVVfUUA/edit#heading=h.144b66wztt4f";
+    "https://docs.google.com/document/d/1VT2-2pPhLa517Z-LKZ7NqCmohyLVwxMuSBCqjBnSc4A/edit?usp=sharing";
 
 class FooterDesktopWidget extends StatelessWidget {
   const FooterDesktopWidget({
@@ -48,11 +48,11 @@ class FooterDesktopWidget extends StatelessWidget {
           FooterInfoWidget(
             title: 'PR поддержка',
             onTap: () {
-              html.window.open(usloviyaPodpiski, 'new tab');
+              html.window.open(polzovatelSoglashenie, 'new tab');
             },
             subtitle:
                 'У вас есть дизайн,\nкоторым вы хотели бы поделиться\nсо всем миром?\nПоделитесь с нами, и мы\nрасскажем о нем.',
-            agreementText: 'Условия подписки',
+            agreementText: 'Пользователькое соглашение',
           ),
           SizedBox(
             height: 280,

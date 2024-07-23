@@ -4,12 +4,10 @@ import 'package:flutter/material.dart';
 import 'app_divider.dart';
 
 class BasicTitleTaskWidget extends StatelessWidget {
-  const BasicTitleTaskWidget({
-    super.key,
-    required this.title,
-    required this.children,
-  });
+  const BasicTitleTaskWidget(
+      {super.key, required this.title, required this.children, this.subWidget});
   final String title;
+  final Widget? subWidget;
   final List<Widget> children;
 
   @override
@@ -24,7 +22,14 @@ class BasicTitleTaskWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(width: size.width * .22, child: TextSize.s12w400(title)),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                      width: size.width * .22, child: TextSize.s12w400(title)),
+                  if (subWidget != null) subWidget!,
+                ],
+              ),
               SizedBox(
                 width: size.width * .5,
                 child: Column(

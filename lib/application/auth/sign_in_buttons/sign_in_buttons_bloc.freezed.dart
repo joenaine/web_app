@@ -527,7 +527,7 @@ abstract class SignUpWithEmail implements SignInButtonsEvent {
 mixin _$SignInButtonsState {
   bool get showErrorMessages => throw _privateConstructorUsedError;
   bool get isSubmitting => throw _privateConstructorUsedError;
-  Option<Either<AuthFailure, dynamic>> get authFailureOrSuccessOption =>
+  Option<Either<String, dynamic>> get authFailureOrSuccessOption =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -544,7 +544,7 @@ abstract class $SignInButtonsStateCopyWith<$Res> {
   $Res call(
       {bool showErrorMessages,
       bool isSubmitting,
-      Option<Either<AuthFailure, dynamic>> authFailureOrSuccessOption});
+      Option<Either<String, dynamic>> authFailureOrSuccessOption});
 }
 
 /// @nodoc
@@ -576,7 +576,7 @@ class _$SignInButtonsStateCopyWithImpl<$Res, $Val extends SignInButtonsState>
       authFailureOrSuccessOption: null == authFailureOrSuccessOption
           ? _value.authFailureOrSuccessOption
           : authFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
-              as Option<Either<AuthFailure, dynamic>>,
+              as Option<Either<String, dynamic>>,
     ) as $Val);
   }
 }
@@ -592,7 +592,7 @@ abstract class _$$SignInButtonsStateImplCopyWith<$Res>
   $Res call(
       {bool showErrorMessages,
       bool isSubmitting,
-      Option<Either<AuthFailure, dynamic>> authFailureOrSuccessOption});
+      Option<Either<String, dynamic>> authFailureOrSuccessOption});
 }
 
 /// @nodoc
@@ -622,7 +622,7 @@ class __$$SignInButtonsStateImplCopyWithImpl<$Res>
       authFailureOrSuccessOption: null == authFailureOrSuccessOption
           ? _value.authFailureOrSuccessOption
           : authFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
-              as Option<Either<AuthFailure, dynamic>>,
+              as Option<Either<String, dynamic>>,
     ));
   }
 }
@@ -640,7 +640,7 @@ class _$SignInButtonsStateImpl implements _SignInButtonsState {
   @override
   final bool isSubmitting;
   @override
-  final Option<Either<AuthFailure, dynamic>> authFailureOrSuccessOption;
+  final Option<Either<String, dynamic>> authFailureOrSuccessOption;
 
   @override
   String toString() {
@@ -678,7 +678,7 @@ abstract class _SignInButtonsState implements SignInButtonsState {
   const factory _SignInButtonsState(
       {required final bool showErrorMessages,
       required final bool isSubmitting,
-      required final Option<Either<AuthFailure, dynamic>>
+      required final Option<Either<String, dynamic>>
           authFailureOrSuccessOption}) = _$SignInButtonsStateImpl;
 
   @override
@@ -686,7 +686,7 @@ abstract class _SignInButtonsState implements SignInButtonsState {
   @override
   bool get isSubmitting;
   @override
-  Option<Either<AuthFailure, dynamic>> get authFailureOrSuccessOption;
+  Option<Either<String, dynamic>> get authFailureOrSuccessOption;
   @override
   @JsonKey(ignore: true)
   _$$SignInButtonsStateImplCopyWith<_$SignInButtonsStateImpl> get copyWith =>

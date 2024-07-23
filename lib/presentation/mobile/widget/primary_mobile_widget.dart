@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 class PrimaryMobileWidget extends StatelessWidget {
   const PrimaryMobileWidget({
     super.key,
+    required this.scrollController,
   });
+  final ScrollController scrollController;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,13 @@ class PrimaryMobileWidget extends StatelessWidget {
         ),
         const SizedBox(height: 40),
         MaterialButton(
-            onPressed: () {},
+            onPressed: () {
+              scrollController.animateTo(
+                3780,
+                duration: const Duration(seconds: 1),
+                curve: Curves.easeInOut,
+              );
+            },
             color: AppColors.primary,
             padding: const EdgeInsets.all(20),
             shape:

@@ -86,10 +86,11 @@ class _TaskScreenMobileState extends State<TaskScreenMobile> {
             children: [
               BasicTitleTaskWidget(title: 'ТЕМАТИКА ПРОЕКТА', children: [
                 TextSize.s24w700(
-                  AppExamples.topicTitle[widget.queryNumber],
+                  AppExamples.taskList[widget.queryNumber].topicTitle,
                 ),
                 const SizedBox(height: 20),
-                TextSize.s12w400(AppExamples.topicSubtitle[widget.queryNumber])
+                TextSize.s12w400(
+                    AppExamples.taskList[widget.queryNumber].topicSubtitle)
               ]),
               BasicTitleTaskWidget(title: 'ШРИФТОВАЯ ПАРА', children: [
                 Row(
@@ -99,8 +100,8 @@ class _TaskScreenMobileState extends State<TaskScreenMobile> {
                       child: InkWell(
                         onTap: () {
                           html.window.open(
-                              AppExamples
-                                      .fontList[widget.queryNumber][0].link ??
+                              AppExamples.taskList[widget.queryNumber]
+                                      .fontList[0].link ??
                                   '',
                               'new tab');
                         },
@@ -114,15 +115,15 @@ class _TaskScreenMobileState extends State<TaskScreenMobile> {
                             children: [
                               Text(
                                 'Aa',
-                                style: AppExamples
-                                    .fontList[widget.queryNumber][0].font
+                                style: AppExamples.taskList[widget.queryNumber]
+                                    .fontList[0].font
                                     ?.copyWith(fontSize: 28),
                                 textAlign: TextAlign.start,
                               ),
                               const SizedBox(height: 10),
                               TextSize.s12w500(
-                                  AppExamples.fontList[widget.queryNumber][0]
-                                          .title ??
+                                  AppExamples.taskList[widget.queryNumber]
+                                          .fontList[0].title ??
                                       '',
                                   color: AppColors.dark),
                               TextSize.s8w400('Для заголовков')
@@ -137,8 +138,8 @@ class _TaskScreenMobileState extends State<TaskScreenMobile> {
                       child: InkWell(
                         onTap: () {
                           html.window.open(
-                              AppExamples
-                                      .fontList[widget.queryNumber][1].link ??
+                              AppExamples.taskList[widget.queryNumber]
+                                      .fontList[1].link ??
                                   '',
                               'new tab');
                         },
@@ -152,14 +153,14 @@ class _TaskScreenMobileState extends State<TaskScreenMobile> {
                             children: [
                               Text(
                                 'Aa',
-                                style: AppExamples
-                                    .fontList[widget.queryNumber][1].font
+                                style: AppExamples.taskList[widget.queryNumber]
+                                    .fontList[1].font
                                     ?.copyWith(fontSize: 28),
                               ),
                               const SizedBox(height: 10),
                               TextSize.s12w500(
-                                  AppExamples.fontList[widget.queryNumber][1]
-                                          .title ??
+                                  AppExamples.taskList[widget.queryNumber]
+                                          .fontList[1].title ??
                                       '',
                                   color: AppColors.dark),
                               TextSize.s8w400('Для текста')
@@ -186,8 +187,8 @@ class _TaskScreenMobileState extends State<TaskScreenMobile> {
                           child: InkWell(
                             onTap: () {
                               Clipboard.setData(ClipboardData(
-                                  text: AppExamples
-                                      .colorsCode[widget.queryNumber][i]));
+                                  text: AppExamples.taskList[widget.queryNumber]
+                                      .colorsCode[i]));
                               ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(content: Text('Скопировано')));
                             },
@@ -197,8 +198,8 @@ class _TaskScreenMobileState extends State<TaskScreenMobile> {
                               padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8),
-                                  color: AppExamples.colors[widget.queryNumber]
-                                      [i]),
+                                  color: AppExamples
+                                      .taskList[widget.queryNumber].colors[i]),
                             ),
                           ),
                         ),
@@ -217,13 +218,13 @@ class _TaskScreenMobileState extends State<TaskScreenMobile> {
                       firstChild: SizedBox(
                         height: 300,
                         child: Html(
-                          data: AppExamples.contentList[widget
-                              .queryNumber], // Replace with your actual HTML content
+                          data: AppExamples.taskList[widget.queryNumber]
+                              .content, // Replace with your actual HTML content
                         ),
                       ),
                       secondChild: Html(
-                        data: AppExamples.contentList[widget
-                            .queryNumber], // Replace with your actual HTML content
+                        data: AppExamples.taskList[widget.queryNumber]
+                            .content, // Replace with your actual HTML content
                       ),
                       crossFadeState: _isVisible
                           ? CrossFadeState.showSecond

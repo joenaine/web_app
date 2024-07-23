@@ -23,7 +23,7 @@ class HeaderDesktopWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
                 onTap: () {
                   scrollController.animateTo(
-                    3500,
+                    3300,
                     duration: const Duration(seconds: 1),
                     curve: Curves.easeInOut,
                   );

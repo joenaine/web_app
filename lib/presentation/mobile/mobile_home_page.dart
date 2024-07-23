@@ -40,7 +40,9 @@ class _MobileHomePageState extends State<MobileHomePage> {
         child: Column(
           children: [
             HeaderMobileWidget(scrollController: _scrollController),
-            const PrimaryMobileWidget(),
+            PrimaryMobileWidget(
+              scrollController: _scrollController,
+            ),
             const SecondMobileWidget(),
             ThirdMobileWidget(pageController: _pageController),
             const FourthMobileWidget(),

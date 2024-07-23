@@ -180,17 +180,17 @@ class SecondLeftSideWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        RichText(
-          textAlign: TextAlign.center,
-          text:
-              TextSpan(text: 'Реальными ', style: AppStyles.s32w700, children: [
-            TextSpan(
-              text: 'кейсами от наших\nпартнеров',
-              style: AppStyles.s32w700
-                  .copyWith(color: AppColors.secondary, height: 1.5),
-            )
-          ]),
-        ),
+        // RichText(
+        //   textAlign: TextAlign.center,
+        //   text:
+        //       TextSpan(text: 'Реальными ', style: AppStyles.s32w700, children: [
+        //     TextSpan(
+        //       text: 'кейсами от наших\nпартнеров',
+        //       style: AppStyles.s32w700
+        //           .copyWith(color: AppColors.secondary, height: 1.5),
+        //     )
+        //   ]),
+        // ),
         const SizedBox(height: 30),
         ClipRRect(
           borderRadius: BorderRadius.circular(32),
