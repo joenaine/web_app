@@ -15,13 +15,19 @@ class RegistrationRepository {
     String? password,
   }) async {
     try {
-      await firestore.collection('users').doc(id).set({
-        'id': id,
-        'name': name,
-        'password': password ?? '',
-        'email': email,
-        'createdDate': DateTime.now()
-      });
+      final doc = await firestore.collection('users').doc(id).get();
+
+      if (doc.exists) {
+      } else {
+        await firestore.collection('users').doc(id).set({
+          'id': id,
+          'name': name,
+          'password': password ?? '',
+          'email': email,
+          'createdDate': DateTime.now()
+        });
+      }
+
       return right(unit);
     } on FirebaseAuthException catch (error) {
       return left(handleFirebaseAuthException(error));

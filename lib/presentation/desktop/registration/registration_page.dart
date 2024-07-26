@@ -6,6 +6,8 @@ import 'package:desoto_web/core/app_assets.dart';
 import 'package:desoto_web/core/app_colors.dart';
 import 'package:desoto_web/core/app_styles.dart';
 import 'package:desoto_web/infrastructure/payment/one_vision_service.dart';
+import 'package:desoto_web/infrastructure/profile/profile_repository.dart';
+import 'package:desoto_web/injection.dart';
 import 'package:desoto_web/presentation/common_widgets/styles.dart';
 import 'package:desoto_web/presentation/common_widgets/text_form_field_visible_password.dart';
 import 'package:desoto_web/presentation/desktop/widgets/footer_desktop_widget.dart';
@@ -136,17 +138,27 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             //move to main page after 1 second delay
                             Future.delayed(const Duration(microseconds: 500),
                                 () async {
-                              final result =
-                                  await OneVisionPayService().makePayment(
-                                email:
-                                    FirebaseAuth.instance.currentUser!.email!,
-                              );
+                              final userRepo = getIt<ProfileRepository>();
 
-                              result.fold(
-                                  (l) => FlushbarHelper.createError(message: l)
-                                      .show(context), (r) {
-                                html.window.open(r, 'new tab');
-                              });
+                              final usr = await userRepo.getProfile(
+                                  id: FirebaseAuth.instance.currentUser!.uid);
+
+                              if (usr?.isPayed ?? false) {
+                                context.go('/auth/taskgenerator');
+                              } else {
+                                final result =
+                                    await OneVisionPayService().makePayment(
+                                  email:
+                                      FirebaseAuth.instance.currentUser!.email!,
+                                );
+
+                                result.fold(
+                                    (l) =>
+                                        FlushbarHelper.createError(message: l)
+                                            .show(context), (r) {
+                                  html.window.open(r, 'new tab');
+                                });
+                              }
                               // context.go('/taskgenerator');
                             });
                           },

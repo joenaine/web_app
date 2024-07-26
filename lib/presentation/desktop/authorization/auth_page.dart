@@ -6,6 +6,8 @@ import 'package:desoto_web/core/app_assets.dart';
 import 'package:desoto_web/core/app_colors.dart';
 import 'package:desoto_web/core/app_styles.dart';
 import 'package:desoto_web/infrastructure/payment/one_vision_service.dart';
+import 'package:desoto_web/infrastructure/profile/profile_repository.dart';
+import 'package:desoto_web/injection.dart';
 import 'package:desoto_web/presentation/common_widgets/styles.dart';
 import 'package:desoto_web/presentation/common_widgets/text_form_field_visible_password.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -75,22 +77,34 @@ class _AuthPageState extends State<AuthPage> {
                           message: failure,
                         ).show(context);
                       },
-                      (_) {
+                      (_) async {
+                        final userRepo = ProfileRepository();
+
+                        final usr = await userRepo.getProfile(
+                            id: FirebaseAuth.instance.currentUser!.uid);
                         //check with button was pressed and trigger success animation
 
                         //move to main page after 1 second delay
                         Future.delayed(const Duration(microseconds: 500),
                             () async {
-                          final result =
-                              await OneVisionPayService().makePayment(
-                            email: FirebaseAuth.instance.currentUser!.email!,
-                          );
+                          log('IsUSERPAYED: $usr');
+                          log('user uuid: ${FirebaseAuth.instance.currentUser!.uid}');
 
-                          result.fold(
-                              (l) => FlushbarHelper.createError(message: l)
-                                  .show(context), (r) {
-                            html.window.open(r, 'new tab');
-                          });
+                          if (usr?.isPayed ?? false) {
+                            context.go('/auth/taskgenerator');
+                          } else {
+                            final result =
+                                await OneVisionPayService().makePayment(
+                              email: FirebaseAuth.instance.currentUser!.email!,
+                            );
+
+                            result.fold(
+                                (l) => FlushbarHelper.createError(message: l)
+                                    .show(context), (r) {
+                              html.window.open(r, 'new tab');
+                            });
+                          }
+
                           // context.go('/auth/taskgenerator');
                         });
                       },
@@ -137,7 +151,6 @@ class _AuthPageState extends State<AuthPage> {
                             context.read<SignInButtonsBloc>().add(
                                 const SignInButtonsEvent
                                     .signInWithGooglePressed());
-                            log(FirebaseAuth.instance.currentUser!.uid);
                           },
                           icon: Image.asset(AppAssets.images.googleIos,
                               height: 48)),

@@ -102,7 +102,7 @@ class PricePlanWidget extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16))),
                   onPressed: () {
-                    context.go('/auth');
+                    context.go('/registration');
                   },
                   child: const Padding(
                     padding: EdgeInsets.all(16.0),

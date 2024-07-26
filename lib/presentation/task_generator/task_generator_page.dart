@@ -1,10 +1,13 @@
 import 'dart:math';
 
+import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:desoto_web/application/auth/auth_bloc.dart';
 import 'package:desoto_web/application/bloc/profile_bloc.dart';
 import 'package:desoto_web/core/app_styles.dart';
 import 'package:desoto_web/core/constants/app_assets.dart';
 import 'package:desoto_web/core/constants/app_colors_const.dart';
+import 'package:desoto_web/infrastructure/profile/profile_repository.dart';
+import 'package:desoto_web/injection.dart';
 import 'package:desoto_web/presentation/common_widgets/responsive_builder.dart';
 import 'package:desoto_web/presentation/task_generator/task_screen.dart';
 import 'package:desoto_web/presentation/task_generator/widgets/general_button.dart';
@@ -34,6 +37,15 @@ class _TaskGeneratorState extends State<TaskGenerator> {
 
   final user = FirebaseAuth.instance.currentUser;
   final bool _isContainerVisible = false;
+
+  Future<void> setPayment() async {
+    final repo = getIt<ProfileRepository>();
+    final result = await repo.setPaymentToProfile(userId: user!.uid);
+    result.fold(
+        (l) => null,
+        (r) => FlushbarHelper.createSuccess(message: 'Добро пожаловать!')
+            .show(context));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -157,10 +169,11 @@ class _TaskGeneratorState extends State<TaskGenerator> {
                                           height: 50,
                                           child: GeneralButton(
                                             text: 'Сгенерировать задание',
-                                            onPressed: () {
+                                            onPressed: () async {
                                               setState(() {
                                                 isLoading = true;
                                               });
+                                              await setPayment();
                                               Future.delayed(const Duration(
                                                       seconds: 2))
                                                   .then((value) {
@@ -284,6 +297,7 @@ class _TaskGeneratorState extends State<TaskGenerator> {
                                               setState(() {
                                                 isLoading = true;
                                               });
+                                              await setPayment();
                                               // aiResponse = await AiRepository.sendRequest(
                                               //     locale: 'en');
                                               //TODO: Change duration
