@@ -78,7 +78,7 @@ class _AuthPageState extends State<AuthPage> {
                         ).show(context);
                       },
                       (_) async {
-                        final userRepo = ProfileRepository();
+                        final userRepo = getIt<ProfileRepository>();
 
                         final usr = await userRepo.getProfile(
                             id: FirebaseAuth.instance.currentUser!.uid);
@@ -87,10 +87,10 @@ class _AuthPageState extends State<AuthPage> {
                         //move to main page after 1 second delay
                         Future.delayed(const Duration(microseconds: 500),
                             () async {
-                          log('IsUSERPAYED: $usr');
+                          log('IsUSERPAYED: ${usr?.toJson()}');
                           log('user uuid: ${FirebaseAuth.instance.currentUser!.uid}');
 
-                          if (usr?.isPayed ?? false) {
+                          if (usr?.isPayed == true) {
                             context.go('/auth/taskgenerator');
                           } else {
                             final result =

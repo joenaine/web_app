@@ -48,6 +48,12 @@ class _TaskGeneratorState extends State<TaskGenerator> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    context.read<ProfileBloc>().add(ProfileEvent.getProfile(id: user!.uid));
+  }
+
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 

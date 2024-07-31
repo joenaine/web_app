@@ -29,22 +29,15 @@ class SignInButtonsBloc extends Bloc<SignInButtonsEvent, SignInButtonsState> {
           );
         },
         signInWithEmail: (e) async {
-          emit(
-            state.copyWith(
-              isSubmitting: true,
-              authFailureOrSuccessOption: none(),
-            ),
-          );
+          emit(state.copyWith(
+              isSubmitting: true, authFailureOrSuccessOption: none()));
 
           final failureOrSuccess = await _authFacade.signInWithEmail(
               email: e.email, password: e.password);
 
-          emit(
-            state.copyWith(
+          emit(state.copyWith(
               isSubmitting: false,
-              authFailureOrSuccessOption: some(failureOrSuccess),
-            ),
-          );
+              authFailureOrSuccessOption: some(failureOrSuccess)));
         },
         signUpWithEmail: (e) async {
           emit(

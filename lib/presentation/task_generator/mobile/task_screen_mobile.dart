@@ -488,6 +488,8 @@ class TaskHeaderMobile extends StatelessWidget implements PreferredSizeWidget {
                 child: InkWell(
                   borderRadius: BorderRadius.circular(8),
                   onTap: () {
+                    context.read<ProfileBloc>().add(ProfileEvent.getProfile(
+                        id: FirebaseAuth.instance.currentUser!.uid));
                     Scaffold.of(context).openDrawer();
                   },
                   child: Padding(
