@@ -60,7 +60,7 @@ class _TextFormFieldVisiblePasswordState
       autofocus: widget.autofocus!,
       onChanged: widget.onChanged,
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      validator: (value) => value!.isEmpty ? formError : null,
+      validator: (value) => value!.length < 8 ? formPassError : null,
     );
   }
 

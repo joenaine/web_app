@@ -36,6 +36,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Form(
         key: _formKey,
@@ -59,6 +60,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  SizedBox(height: size.height * .1),
                   const Text('DESOTO', style: AppStyles.s40w700),
                   const SizedBox(height: 40),
                   SizedBox(

@@ -23,6 +23,7 @@ const PLATFORM_IOS = 1;
 const PLATFORM_ANDROID = 2;
 
 const String formError = 'Заполните поле';
+const String formPassError = 'Пароль должен содержать не менее 8 символов';
 const Duration minFirstDateOfCalendar = Duration(days: -(365 * 150));
 const Duration maxLastDateOfCalendar = Duration(days: 365 * 100);
 final GlobalKey bottomNavBarKey = GlobalKey();
