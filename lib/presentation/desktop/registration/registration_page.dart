@@ -11,9 +11,11 @@ import 'package:desoto_web/injection.dart';
 import 'package:desoto_web/presentation/common_widgets/styles.dart';
 import 'package:desoto_web/presentation/common_widgets/text_form_field_visible_password.dart';
 import 'package:desoto_web/presentation/desktop/widgets/footer_desktop_widget.dart';
+import 'package:desoto_web/presentation/task_generator/widgets/general_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'dart:html' as html;
@@ -34,6 +36,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   String? password;
   String? passwordConfirm;
   final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
